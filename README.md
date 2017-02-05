@@ -7,7 +7,7 @@ ZeroBraneStudio 1.51 or a version with the merged branch `load-filters-refactor`
 
 There is two differnt options:
 
-* Put the contents of this repository into zbstudio's package directory
+* Install like a regular package, put the lua file and the subdirectory of this repository into zbstudio's package directory
 * Put a dummy file into the package directory that simply forwards to the content of this repository:
 
   `return dofile([[Absolute filepath to graphicspackage.lua]])`
