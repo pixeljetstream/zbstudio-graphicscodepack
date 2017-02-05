@@ -1,5 +1,5 @@
 # zbstudio-graphicscodepack
-A package for [ZeroBraneStudio](https://github.com/pkulchenko/ZeroBraneStudio) to aid graphics programming in Lua (OpenGL, Vulkan etc.). Its content originates from the [Estrela Editor](http://www.luxinia.de/index.php/Estrela/Estrela) from which zbstudio was forked.
+A package for [ZeroBraneStudio](https://github.com/pkulchenko/ZeroBraneStudio) to aid graphics programming in Lua (OpenGL, Vulkan etc.). Its content originates from the [Estrela Editor](http://www.luxinia.de/index.php/Estrela/Estrela) from which zbstudio was forked. The installation of this package supercedes the "estrela" configuration that zbstudio used previously.
 
 ## Installation
 
