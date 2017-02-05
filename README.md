@@ -10,7 +10,7 @@ There is two differnt options:
 * Install like a regular package, put the lua file and the subdirectory of this repository into zbstudio's package directory
 * Put a dummy file into the package directory that simply forwards to the content of this repository:
 
-  `return dofile([[Absolute filepath to graphicspackage.lua]])`
+  `return dofile([[Absolute filepath to graphicscodepack.lua]])`
 
 ## Features
 
