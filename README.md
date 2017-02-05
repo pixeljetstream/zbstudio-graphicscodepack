@@ -3,6 +3,8 @@ A package for [ZeroBraneStudio](https://github.com/pkulchenko/ZeroBraneStudio) t
 
 ## Installation
 
+ZeroBraneStudio 1.51 or a version with the merged branch `load-filters-refactor` is required.
+
 There is two differnt options:
 
 * Put the contents of this repository into zbstudio's package directory
