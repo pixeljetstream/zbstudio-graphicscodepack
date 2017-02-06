@@ -3,7 +3,7 @@ A package for [ZeroBraneStudio](https://studio.zerobrane.com/) to aid graphics p
 
 ## Installation
 
-ZeroBraneStudio 1.51 or a version with the merged branch `load-filters-refactor` is required.
+ZeroBraneStudio 1.51 or a version from this [commit](https://github.com/pkulchenko/ZeroBraneStudio/commit/9c8b3f0167361cc7e065e48a5deb9f6c93fd03a4) onwards.
 
 There is two differnt options:
 
