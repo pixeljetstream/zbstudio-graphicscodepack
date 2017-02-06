@@ -1,4 +1,4 @@
--- authors: Luxinia Dev (Eike Decker & Christoph Kubisch)
+-- Copyright (C) 2008-2017 Christoph Kubisch. All rights reserved.
 ---------------------------------------------------------
 
 local binpath = ide.config.path.glslcbin or os.getenv("GLSLC_BIN_PATH")

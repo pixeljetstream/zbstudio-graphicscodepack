@@ -1,4 +1,4 @@
--- author: Christoph Kubisch
+-- Copyright (C) 2008-2017 Christoph Kubisch. All rights reserved.
 ---------------------------------------------------------
 local StripCommentsC = StripCommentsC
 if not StripCommentsC then

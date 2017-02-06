@@ -1,4 +1,4 @@
--- authors: Luxinia Dev (Eike Decker & Christoph Kubisch)
+-- Copyright (C) 2008-2017 Christoph Kubisch. All rights reserved.
 ---------------------------------------------------------
 
 local binpath = ide.config.path.fxcbin or (os.getenv("DXSDK_DIR") and os.getenv("DXSDK_DIR").."/Utilities/bin/x86/")

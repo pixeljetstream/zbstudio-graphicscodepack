@@ -1,3 +1,6 @@
+-- Copyright (C) 2008-2017 Christoph Kubisch. All rights reserved.
+-----------------------------------------------------------------
+
 local function cstringify()
   local editor = GetEditor()
   if (not editor) then end

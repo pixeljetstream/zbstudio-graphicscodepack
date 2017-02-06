@@ -1,4 +1,4 @@
--- authors: Luxinia Dev (Eike Decker & Christoph Kubisch)
+-- Copyright (C) 2008-2017 Christoph Kubisch. All rights reserved.
 ---------------------------------------------------------
 
 local funccall = "([A-Za-z_][A-Za-z0-9_]*)%s*"
