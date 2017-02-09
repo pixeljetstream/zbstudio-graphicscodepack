@@ -117,7 +117,7 @@ return {
     
     gl_Position gl_FragCoord
     gl_VertexID gl_InstanceID gl_PointSize gl_ClipDistance
-    gl_TexCoord gl_FogFragCoord gl_ClipVertex gl_in
+    gl_TexCoord gl_FogFragCoord gl_ClipVertex gl_in gl_out gl_PerVertex
     gl_PatchVerticesIn
     gl_PrimitiveID gl_InvocationID gl_TessLevelOuter gl_TessLevelInner gl_TessCoord
     gl_InvocationID gl_PrimitiveIDIn gl_Layer gl_ViewportIndex gl_FrontFacing
