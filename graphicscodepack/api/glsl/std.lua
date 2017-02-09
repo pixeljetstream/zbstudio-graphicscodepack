@@ -210,11 +210,15 @@ allInvocationsEqualARB = fn "returns true if <value> is the same for all active 
 }
 
 local keyw = 
-[[  int uint half float bool double atomic_uint binding offset
+[[  
+    int uint half float bool double
     vec2 vec3 vec4 dvec2 dvec3 dvec4
     ivec2 ivec3 ivec4 uvec2 uvec3 uvec4 bvec2 bvec3 bvec4
     mat2 mat3 mat4 mat2x2 mat3x3 mat4x4 mat2x3 mat3x2 mat4x2 mat2x4 mat4x3 mat3x4
     dmat2 dmat3 dmat4 dmat2x2 dmat3x3 dmat4x4 dmat2x3 dmat3x2 dmat4x2 dmat2x4 dmat4x3 dmat3x4
+    struct void
+    subroutine
+    
     float16_t f16vec2 f16vec3 f16vec4
     float32_t f32vec2 f32vec3 f32vec4
     float64_t f64vec2 f64vec3 f64vec4
@@ -227,25 +231,64 @@ local keyw =
     uint16_t u16vec2 u16vec3 u16vec4
     uint32_t u32vec2 u32vec3 u32vec4
     uint64_t u64vec2 u64vec3 u64vec4
-    struct typedef void
-    usampler1D usampler2D usampler3D usampler2DRect usamplerCube isampler1DArray usampler2DARRAY usamplerCubeArray usampler2DMS usampler2DMSArray
-    isampler1D isampler2D isampler3D isampler2DRect isamplerCube isampler1DArray isampler2DARRAY isamplerCubeArray isampler2DMS isampler2DMSArray
-    sampler1D sampler2D sampler3D sampler2DRect samplerCube sampler1DArray sampler2DArray samplerCubeArray sampler2DMS sampler2DMSArray
-    sampler1DShadow sampler2DShadow sampler2DRectShadow sampler1DArrayShadow sampler2DArrayShadow samplerCubeArrayShadow
-    usamplerBuffer isamplerBuffer samplerBuffer samplerRenderbuffer isamplerRenderbuffer usamplerRenderbuffer
-    in out inout uniform const centroid sample attribute varying patch index true false
-    return switch case for do while if else break continue main inline
-    layout location vertices line_strip triangle_strip max_vertices stream
+    
+    main
+    attribute const uniform varying buffer shared
+    coherent volatile restrict readonly writeonly
+    atomic_uint
+    layout 
+    centroid flat smooth noperspective
+    patch sample
+    break continue do for while switch case default
+    if else
+    subroutine
+    in out inout
+    float double int void bool true false
+    invariant precise
+    discard return
+    lowp mediump highp precision
+    
+    location vertices line_strip triangle_strip max_vertices stream index
     triangles quads equal_spacing isolines fractional_even_spacing lines points
     fractional_odd_spacing cw ccw point_mode lines_adjacency triangles_adjacency
     invocations offset align xfb_offset xfb_buffer
     origin_upper_left pixel_center_integer depth_greater depth_greater depth_greater depth_unchanged
-    smooth flat noperspective highp mediump lowp shared packed std140 std430 row_major column_major buffer
-    gl_FrontColor gl_BackColor gl_FrontSecondaryColor gl_BackSecondaryColor gl_Color gl_SecondaryColor
-    subroutine gl_Position gl_FragCoord
-    gl_VertexID gl_InstanceID gl_Normal gl_Vertex gl_MultiTexCoord0 gl_MultiTexCoord1
-    gl_MultiTexCoord2 gl_MultiTexCoord3 gl_MultiTexCoord4 gl_MultiTexCoord5 gl_MultiTexCoord6
-    gl_MultiTexCoord7 gl_FogCoord gl_PointSize gl_ClipDistance
+    shared packed std140 std430 row_major column_major
+    local_size_x local_size_y local_size_z
+    early_fragment_tests
+        
+    post_depth_coverage
+    bindless_sampler bound_sampler bindless_image bound_image
+    binding set input_attachment_index
+    pixel_interlock_ordered pixel_interlock_unordered sample_interlock_ordered sample_interlock_unordered
+    commandBindableNV passthrough secondary_view_offset viewport_relative override_coverage
+   
+    size1x8 size1x16 size1x32 size2x32 size4x32 rgba32f rgba16f rg32f rg16f r32f r16f rgba8 rgba16 r11f_g11f_b10f rgb10_a2ui
+    rgb10_a2i rg16 rg8 r16 r8 rgba32i rgba16i rgba8i rg32i rg16i rg8i r32i r16i r8i rgba32ui rgba16ui rgba8ui rg32ui rg16ui rg8ui
+    r32ui r16ui r8ui rgba16_snorm rgba8_snorm rg16_snorm rg8_snorm r16_snorm r8_snorm
+
+    subpassInput isubpassInput usubpassInput
+    subpassInputMS isubpassInputMS usubpassInputMS
+    
+    sampler 
+    samplerShadow 
+    
+    sampler1DShadow sampler2DShadow sampler2DRectShadow samplerCubeShadow sampler1DArrayShadow sampler2DArrayShadow samplerCubeArrayShadow
+    
+    image1D image2D image3D image2DRect imageCube imageBuffer image1DArray image2DArray imageCubeArray image2DMS image2DMSArray
+    uimage1D uimage2D uimage3D uimage2DRect uimageCube uimageBuffer uimage1DArray uimage2DArray uimageCubeArray uimage2DMS uimage2DMSArray
+    iimage1D iimage2D iimage3D iimage2DRect iimageCube iimageBuffer iimage1DArray iimage2DArray iimageCubeArray iimage2DMS iimage2DMSArray
+    
+    texture1D texture2D texture3D textureCube texture2DRect texture1DArray texture2DArray textureBuffer texture2DMS texture2DMSArray textureCubeArray
+    utexture1D utexture2D utexture3D utextureCube utexture2DRect utexture1DArray utexture2DArray utextureBuffer utexture2DMS utexture2DMSArray utextureCubeArray
+    itexture1D itexture2D itexture3D itextureCube itexture2DRect itexture1DArray itexture2DArray itextureBuffer itexture2DMS itexture2DMSArray itextureCubeArray
+    
+    usampler1D usampler2D usampler3D usampler2DRect usamplerBuffer usamplerCube isampler1DArray usampler2DARRAY usamplerCubeArray usampler2DMS usampler2DMSArray
+    isampler1D isampler2D isampler3D isampler2DRect isamplerCube isamplerBuffer isampler1DArray isampler2DARRAY isamplerCubeArray isampler2DMS isampler2DMSArray
+    sampler1D sampler2D sampler3D sampler2DRect samplerCube samplerBuffer sampler1DArray sampler2DArray samplerCubeArray sampler2DMS sampler2DMSArray
+    
+    gl_Position gl_FragCoord
+    gl_VertexID gl_InstanceID gl_PointSize gl_ClipDistance
     gl_TexCoord gl_FogFragCoord gl_ClipVertex gl_in
     gl_PatchVerticesIn
     gl_PrimitiveID gl_InvocationID gl_TessLevelOuter gl_TessLevelInner gl_TessCoord
@@ -253,18 +296,17 @@ local keyw =
     gl_PointCoord gl_SampleID gl_SamplePosition gl_FragColor
     gl_FragData gl_FragDepth gl_SampleMask
     gl_NumWorkGroups gl_WorkGroupSize gl_WorkGroupID gl_LocalInvocationID gl_GlobalInvocationID gl_LocalInvocationIndex
-    local_size_x local_size_y local_size_z
+    gl_HelperInvocation gl_CullDistance
+    gl_VertexIndex gl_InstanceIndex
+    
     gl_BaseVertexARB gl_BaseInstanceARB gl_DrawIDARB
-    bindless_sampler bound_sampler bindless_image bound_image early_fragment_tests
-    gl_HelperInvocation gl_CullDistance gl_MaxSamples
-
-    coherent volatile restrict readonly writeonly
-    image1D image2D image3D image2DRect imageCube imageBuffer image1DArray image2DArray imageCubeArray image2DMS image2DMSArray
-    uimage1D uimage2D uimage3D uimage2DRect uimageCube uimageBuffer uimage1DArray uimage2DArray uimageCubeArray uimage2DMS uimage2DMSArray
-    iimage1D iimage2D iimage3D iimage2DRect iimageCube iimageBuffer iimage1DArray iimage2DArray iimageCubeArray iimage2DMS iimage2DMSArray
-    size1x8 size1x16 size1x32 size2x32 size4x32 rgba32f rgba16f rg32f rg16f r32f r16f rgba8 rgba16 r11f_g11f_b10f rgb10_a2ui
-    rgb10_a2i rg16 rg8 r16 r8 rgba32i rgba16i rgba8i rg32i rg16i rg8i r32i r16i r8i rgba32ui rgba16ui rgba8ui rg32ui rg16ui rg8ui
-    r32ui r16ui r8ui rgba16_snorm rgba8_snorm rg16_snorm rg8_snorm r16_snorm r8_snorm
+    
+    gl_SubGroupInvocationARB gl_SubGroupEqMaskARB gl_SubGroupGeMaskARB gl_SubGroupGtMaskARB gl_SubGroupLeMaskARB gl_SubGroupLtMaskARB
+    
+    gl_ViewportMask
+    gl_SecondaryPositionNV gl_SecondaryViewportMaskNV
+    gl_ThreadInWarpNV gl_ThreadEqMaskNV gl_ThreadGeMaskNV gl_ThreadGtMaskNV gl_ThreadLeMaskNV gl_ThreadLtMaskNV gl_WarpIDNV gl_SMIDNV gl_HelperThreadNV
+    gl_WarpSizeNV gl_WarpsPerSMNV gl_WarpsPerSMNV
 ]]
 
 -- keywords - shouldn't be left out
