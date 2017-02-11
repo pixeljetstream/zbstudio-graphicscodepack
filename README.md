@@ -28,10 +28,22 @@ The GLASM output from glslc is also analyzed and formated by the tool. However, 
 Similar as above is provided for the DirectX HLSL compiler (however not maintained as much as GLSL). Similar to GLSL modify `cfg/user.lua` and add `path.fxcbin = [[path to fxc.exe (excluded)]]` otherwise `(os.getenv("DXSDK_DIR") and os.getenv("DXSDK_DIR").."/Utilities/bin/x86/")` is used.
 
 ### Lua
+#### Api Files
 There is api completion for various lua-ffi bindings:
 * [GLFW](http://www.glfw.org) 2 and 3
 * OpenGL (glewgl) core + ARB,NV,AMD extensions
 * Vulkan
 * [ShaderC](https://github.com/google/shaderc) 
 
+#### Interpreter
 An interpreter for the [LuaJIT gfx sandbox](https://github.com/pixeljetstream/luajit_gfx_sandbox) is provided, which makes use of the above bindings. It can be used by setting `path.luajitgfxsandbox = [[path to luajit gfx runtime directory]]` in the config file or via `LUAJIT_GFX_SANDBOX_PATH` environment variable. The interpreter does support debugging.
+
+### Tools
+#### LuaJIT ffi string to editor api
+A tool is provided to turn a LuaJIT ffi C header into an api specification that zbstudio can use. This makes adding auto completion and tooltips for C apis easier. Ensure the ffi header is in the active editor tab when running the tool.
+
+#### Perforce edit/revert
+To some basic perforce operations with the current file
+
+#### stringify to C
+Surrounds every line of the active editor file by quotes and new line symbol: ```" original content \n"``` 
