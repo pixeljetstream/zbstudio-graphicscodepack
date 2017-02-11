@@ -20,6 +20,10 @@ To make the GLSL menu working either modify your zbstudio's `cfg/user.lua` and a
 
 ![glslc inside zbstudio](http://www.luxinia.de/images/estrela_glslc.png).
 
+The GLASM output from glslc is also analyzed and formated by the tool. However, be aware that this is just an intermediate format for NVIDIA and not the actual assembly.
+
+![glslc_glasm](http://www.luxinia.de/uploads/Estrela/Estrelacg.png)
+
 ### HLSL/DX
 Similar as above is provided for the DirectX HLSL compiler (however not maintained as much as GLSL). Similar to GLSL modify `cfg/user.lua` and add `path.fxcbin = [[path to fxc.exe (excluded)]]` otherwise `(os.getenv("DXSDK_DIR") and os.getenv("DXSDK_DIR").."/Utilities/bin/x86/")` is used.
 
