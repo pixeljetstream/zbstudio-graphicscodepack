@@ -130,6 +130,7 @@ return {
     gl_BaseVertexARB gl_BaseInstanceARB gl_DrawIDARB
     
     gl_SubGroupInvocationARB gl_SubGroupEqMaskARB gl_SubGroupGeMaskARB gl_SubGroupGtMaskARB gl_SubGroupLeMaskARB gl_SubGroupLtMaskARB
+    gl_SubGroupSizeARB
     
     gl_ViewportMask
     gl_SecondaryPositionNV gl_SecondaryViewportMaskNV
@@ -171,11 +172,12 @@ return {
     
     EmitStreamVertex EndStreamPrimitive EmitVertex EndPrimitive
     
-    textureSize textureSamples textureQueryLod texture textureOffset textureProj
+    textureSize textureSamples textureQueryLod textureQueryLevels
+    texture textureOffset textureProj
     textureLod textureProjOffset textureLodOffset
     texelFetchOffset texelFetch textureProjLod textureProjLodOffset
     textureGrad textureGradOffset textureProjGrad textureProjGradOffset
-    textureGather textureGatherOffset
+    textureGather textureGatherOffset textureGatherOffsets
 
     imageLoad imageStore
     imageAtomicAdd imageAtomicMin imageAtomicMax
@@ -195,6 +197,7 @@ return {
     
     packPtr unpackPtr
     anyThreadNV allThreadsNV allThreadsEqualNV
+    activeThreadsNV ballotThreadNV
     quadSwizzle0NV quadSwizzle1NV quadSwizzle2NV quadSwizzle3NV
     quadSwizzleXNV quadSwizzleYNV
     shuffleDownNV shuffleUpNV shuffleXorNV shuffleNV
@@ -202,6 +205,7 @@ return {
     ballotARB readInvocationARB readFirstInvocationARB
     clock2x32ARB clockARB
     
+    sparseTexelsResidentARB
     sparseTextureARB sparseTextureLodARB sparseTextureOffsetARB sparseTexelFetchARB 
     sparseTexelFetchOffsetARB sparseTextureLodOffsetARB sparseTextureGradARB 
     sparseTextureGradOffsetARB sparseTextureGatherARB sparseTextureGatherOffsetARB sparseTextureGatherOffsetsARB

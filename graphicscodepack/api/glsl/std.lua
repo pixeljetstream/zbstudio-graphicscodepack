@@ -99,7 +99,7 @@ cross = fn "returns the cross product of two three-component vectors. - (type3)(
 normalize = fn "Returns the normalized version of a vector, meaning a vector in the same direction as the original vector but with a Euclidean length of one. - (vecN)(vecN)",
 reflect = fn "returns the reflectiton vector given an incidence vector and a normal vector. - (vecN)(vecN incidence, normal)",
 refract = fn "computes a refraction vector. - (vecN)(vecN incidence, normal, type eta)",
-faceforward = fn "returns a normal as-is if a vertex's eye-space position vector points in the opposite direction of a geometric normal, otherwise return the negated version of the normal. - (vecN)(vecN Nperturbated, Incident, Ngeometric)",
+faceforward = fn "dot(Nreference, incident) < 0 returns N, otherwise it returns -N. - (vecN)(vecN N, incident, Nreference)",
 
 determinant = fn "returns the scalar determinant of a square matrix. - (float)(matN)",
 transpose = fn "returns transpose matrix of a matrix. - (matNxM)(matMxN)",
@@ -122,7 +122,7 @@ usubBorrow = fn "Subtracts y from x, returning the difference if non-negative ot
 umulExtended = fn "Multiplies 32-bit integers x and y producing 64-bit result. (uintN)(uintN x, y, out msb, out lsb)",
 imulExtended = fn "Multiplies 32-bit integers x and y producing 64-bit result. (intN)(intN x, y, out msb, out lsb)",
 bitfieldExtract = fn "Extracts bits (offset, offset + bits -1) from value and returns them in lsb of result.  - (intN)(intN value, int offset, int bits)",
-bitfieldInsert = fn "Returns the insertion the bits lsb of insert into base. - (intN)(intN base insert, int offset, int bits)",
+bitfieldInsert = fn "Returns the insertion the bits lsb of insert into base. - (intN)(intN base, insert, int offset, int bits)",
 bitfieldReverse = fn "Returns the reversal of the bits. - (intN)(intN)",
 bitCount = fn "returns the number of bits set to 1. - (intN)(intN)",
 findLSB = fn "returns bit number of lsb. - (intN)(intN)",
@@ -141,11 +141,6 @@ fwidthCoarse = fn "returns abs sum of approximate window-space partial derivativ
 interpolateAtCentroid = fn "Return value of interpolant sampled inside pixel and the primitive. - (floatN)(floatN)",
 interpolateAtSample = fn "Return value of interpolant at the location fo sample. - (floatN)(floatN, int sample)",
 interpolateAtOffset = fn "Return value of interpolant sampled at fixed offset offset from pixel center. - (floatN)(floatN, vec2 offset)",
-
-noise1 = fn "returns noise value. - (float)(float)",
-noise2 = fn "returns noise value. - (vec2)(float)",
-noise3 = fn "returns noise value. - (vec3)(float)",
-noise4 = fn "returns noise value. - (vec4)(float)",
 
 EmitStreamVertex = fn "Emits values of the output variables of the current output primitive stream. - ()(int stream)",
 EndStreamPrimitive = fn "Completes current output primitive stream and starts a new one. - ()(int stream)",
@@ -172,7 +167,7 @@ imageAtomicCompSwap = fn "performs atomic operation on individual texels returns
 imageStore = fn "stores the texel at the coordinate. - ()(imageN, intN coord, [int sample], vecN data)",
 imageLoad = fn "loads the texel at the coordinate. - (vecN)(imageN, intN coord, [int sample])",
 imageSize = fn "returns the size of the image. - (ivecN)(imageN)",
-imageSamples = fn "returns the samples of the multi-sampled image. - (int)(image2DMSN)",
+imageSamples = fn "returns the samples of the multi-sampled image. - (int)(image2DMS)",
 
 atomicCounterIncrement = fn "increments counter and returns old value. - (uint)(atomic_uint)",
 atomicCounterDecrement = fn "decrements counter and returns old value. - (uint)(atomic_uint)",
@@ -186,27 +181,83 @@ atomicXor = fn "performs atomic operation on memory location (ssbo/shared) retur
 atomicExchange = fn "performs atomic operation on memory location (ssbo/shared) returns old value. - (uint)(inout uint mem, uint data)",
 atomicCompSwap = fn "performs atomic operation on memory location (ssbo/shared) returns old value. - (uint)(inout uint mem, uint data)",
 
-textureSize = fn "returns the size of the texture (no lod required: Rect, MS and Buffer). - (intN)(samplerN, [int lod])",
-textureSamples = fn "returns the samples of the multi-sampled texture. - (int)(texture2DMSN)",
-textureQueryLod = fn "returns the lod values for a given coordinate. - (vec2)(samplerN, vecN coord)",
-texture = fn "performs a texture lookup. Shadow samplers require base N+1 coordinate.  Lod bias is optional (illegal for MS, Buffer, Rect). - (vec4)(samplerN, vecN coord, [float bias])",
-textureProj = fn "performas a projective texture lookup (only Nd samplers + Rect). Shadows require N+1 base coordinate, no Lod bias allowed for Rect. - (vec4)(samplerN, vecN+1 coord, [float bias])",
-textureLod = fn "performs a lookup with explicit LOD. Shadows require N+1 base coordinate. Illegal function for Rect, MS, Buffer. - (vec4)(samplerN, vecN coord, float lod)",
-textureOffset = fn "offset added before texture lookup. Illegal for MS, Buffer, Cube. - (vec4)(samplerN, vecN coord, intN offset, [float bias])",
-textureProjOffset = fn "projective texture lookup with offset. Illegal for MS, Buffer, Cube, Array. - (vec4)(samplerN, vecN+1 coord, intN offset, [float bias])",
-textureLodOffset = fn "offset added with explicit LOD. - (vec4)(samplerN, vecN coord, intN offset, int lod)",
-textureProjLodOffset = fn "projective lookup with offset and explicit LOD. - (vec4)(samplerN, vecN+1 coord, intN offset, int lod)",
-textureGrad = fn "lookup with explicit gradients. Illegal for MS, Buffer. - (vec4)(samplerN, vecN coord, gradX, gradY)",
-textureGradOffset = fn "lookup with explicit gradients and offset. Illegal for MS, Buffer, Cube. - (vec4)(samplerN, vecN coord, gradX, gradY, intN offset)",
-textureProjGradOffset = fn "projective lookup with expöicit gradients and offset. Illegal for MS, Buffer, Cube. - (vec4)(samplerN, vecN+1 coord, vecN gradX, gradY, intN offset)",
-textureGather = fn "gather lookup (pixel quad of 4 single channel samples at once). Component 0: x, 1: y ... is ignored for shadow samplers instead reference value must be passed. Only 2D/Cube. Illegal for MS. - (vec4)(samplerN, vecN coord, [int comp] / float shadowRefZ)",
-textureGatherOffset = fn "gather lookup (pixel quad of 4 single channel samples at once) with offset. Component 0: x, 1: y ... is ignored for shadow samplers instead reference value must be passed. Only 2D/Cube. Illegal for MS. - (vec4)(samplerN, vecN coord, [float shadowRefZ], intN offset / intN offset[4] , [int comp])",
 texelFetch = fn "integer coordinate lookup for a single texel. No lod parameter for Buffer, MS, Rect. Illegal for Cube - (vec4)(samplerN, intN coord, [int lod/sample])",
 texelFetchOffset = fn "integer coordinate lookup for a single texel with offset. No lod parameter for Buffer, MS, Rect. Illegal for Cube, Buffer, MS. - (vec4)(samplerN, intN coord, [int lod/sample], intN offset)",
+texture = fn "performs a texture lookup. Shadow samplers require base N+1 coordinate.  Lod bias is optional (illegal for MS, Buffer, Rect). - (vec4)(samplerN, vecN coord, [float bias])",
+textureGather = fn "gather lookup (pixel quad of 4 single channel samples at once). Component 0: x, 1: y ... is ignored for shadow samplers instead reference value must be passed. Only 2D/Cube. Illegal for MS. - (vec4)(samplerN, vecN coord, [int comp] / float shadowRefZ)",
+textureGatherOffset = fn "gather lookup (pixel quad of 4 single channel samples at once) with offset. Component 0: x, 1: y ... is ignored for shadow samplers instead reference value must be passed. Only 2D/Cube. Illegal for MS. - (vec4)(samplerN, vecN coord, [float shadowRefZ], intN offset, [int comp])",
+textureGatherOffsets = fn "gather lookup (pixel quad of 4 single channel samples at once) with offset. Component 0: x, 1: y ... is ignored for shadow samplers instead reference value must be passed. Only 2D/Cube. Illegal for MS. - (vec4)(samplerN, vecN coord, [float shadowRefZ], intN offsets[4] , [int comp])",
+textureGrad = fn "lookup with explicit gradients. Illegal for MS, Buffer. - (vec4)(samplerN, vecN coord, gradX, gradY)",
+textureGradOffset = fn "lookup with explicit gradients and offset. Illegal for MS, Buffer, Cube. - (vec4)(samplerN, vecN coord, gradX, gradY, intN offset)",
+textureLod = fn "performs a lookup with explicit LOD. Shadows require N+1 base coordinate. Illegal function for Rect, MS, Buffer. - (vec4)(samplerN, vecN coord, float lod)",
+textureLodOffset = fn "offset added with explicit LOD. - (vec4)(samplerN, vecN coord, intN offset, int lod)",
+textureOffset = fn "offset added before texture lookup. Illegal for MS, Buffer, Cube. - (vec4)(samplerN, vecN coord, intN offset, [float bias])",
+textureProj = fn "performs a projective texture lookup (only Nd samplers + Rect). Shadows require N+1 base coordinate, no Lod bias allowed for Rect. - (vec4)(samplerN, vecN+1 coord, [float bias])",
+textureProjGrad = fn "performs a projective texture lookup with explicit gradients (only Nd samplers + Rect). Shadows require N+1 base coordinate, no Lod bias allowed for Rect. - (vec4)(samplerN, vecN+1 coord, vecN gradX, gradY)",
+textureProjGradOffset = fn "projective lookup with explicit gradients and offset. Illegal for MS, Buffer, Cube. - (vec4)(samplerN, vecN+1 coord, vecN gradX, gradY, intN offset)",
+textureProjLod = fn "performs a projective texture lookup with explicit LOD (only Nd samplers). Shadows require N+1 base coordinate. - (vec4)(samplerN, vecN+1 coord, float lod)",
+textureProjLodOffset = fn "projective lookup with offset and explicit LOD. - (vec4)(samplerN, vecN+1 coord, intN offset, int lod)",
+textureProjOffset = fn "projective texture lookup with offset. Illegal for MS, Buffer, Cube, Array. - (vec4)(samplerN, vecN+1 coord, intN offset, [float bias])",
+textureQueryLevels = fn "returns the number of accessible mipmap levels of a texture. - (int)(samplerN)",
+textureQueryLod = fn "returns the lod values for a given coordinate. - (vec2)(samplerN, vecN coord)",
+textureSamples = fn "returns the samples of the multi-sampled texture. - (int)(texture2DMSN)",
+textureSize = fn "returns the size of the texture (no lod required: Rect, MS and Buffer). - (intN)(samplerN, [int lod])",
+
 
 anyInvocationARB = fn "returns true if and only if <value> is true for at least one active invocation in the group. - (bool)(bool value)",
 allInvocationsARB = fn "returns true if and only if <value> is true for all active invocations in the group - (bool)(bool value)",
 allInvocationsEqualARB = fn "returns true if <value> is the same for all active invocation in the group. - (bool)(bool value)",
+
+packPtr = fn "returns pointer from uvec2. - (void*)(uvec2)",
+unpackPtr = fn "return uvec2 from pointer. - (uvec2)(void*)",
+
+anyThreadNV = fn "returns true if and only if <value> is true for at least one active invocation in the group. - (bool)(bool value)",
+allThreadsNV = fn "returns true if and only if <value> is true for all active invocations in the group - (bool)(bool value)",
+allThreadsEqualNV = fn "returns true if <value> is the same for all active invocation in the group. - (bool)(bool value)",
+
+activeThreadsNV = fn "sets ith bit for every active thread in warp - (uint)()",
+ballotThreadNV = fn "sets ith bit for every active thread in warp if true. - (uint)(bool value)",
+
+quadSwizzle0NV = fn "result[thread N] = swizzledValue[thread 0] + unswizzledValue[thread N]. - (vecN)(vecN swizzledValue, [vecN unswizzledValue])",
+quadSwizzle1NV = fn "result[thread N] = swizzledValue[thread 1] + unswizzledValue[thread N]. - (vecN)(vecN swizzledValue, [vecN unswizzledValue])",
+quadSwizzle2NV = fn "result[thread N] = swizzledValue[thread 2] + unswizzledValue[thread N]. - (vecN)(vecN swizzledValue, [vecN unswizzledValue])",
+quadSwizzle3NV = fn "result[thread N] = swizzledValue[thread 3] + unswizzledValue[thread N]. - (vecN)(vecN swizzledValue, [vecN unswizzledValue])",
+quadSwizzleXNV = fn "result[thread N] = swizzledValue[thread X neighbor] + unswizzledValue[thread N]. - (vecN)(vecN swizzledValue, [vecN unswizzledValue])",
+quadSwizzleYNV = fn "result[thread N] = swizzledValue[thread Y neighbor] + unswizzledValue[thread N]. - (vecN)(vecN swizzledValue, [vecN unswizzledValue])",
+
+shuffleDownNV = fn "result[thread N] = data[thread N + index ]. - (genN)(genN data, uint index, uint width, [out bool threadIdValid])",
+shuffleUpNV = fn "result[thread N] = data[thread N - index]. - (genN)(genN data, uint index, uint width, [out bool threadIdValid])",
+shuffleXorNV = fn "result[thread N] = data[thread N ^ index]. - (genN)(genN data, uint index, uint width, [out bool threadIdValid])",
+shuffleNV = fn "result[thread N] = data[thread index].  - (genN)(genN data, uint index, uint width, [out bool threadIdValid])",
+
+ballotARB = fn "sets ith bit for every active thread in sub group. - (uint64_t)(bool value)",
+readInvocationARB = fn "result[thread N] = data[thread index]. - (genN)(genN data, uint index)",
+readFirstInvocationARB = fn "result[thread N] = data[thread 0]. - (genN)(genN data)",
+
+clock2x32ARB = fn "current execution clock as seen by the shader processor. - (uvec2)()",
+clockARB = fn "current execution clock as seen by the shader processor. - (uint64_t)()",
+
+sparseTexelsResidentARB = fn "false if code represents touching uncommitted texture memory. - (bool)(int code)",
+sparseTextureARB = fn " - (int)(gsamplerN sampler, vecN P, out gvec4 texel [, float bias])",
+sparseTextureLodARB = fn " - (int)(gsamplerN sampler, vecN P, float lod, out gvec4 texel)",
+sparseTextureOffsetARB = fn " - (int)(gsamplerN sampler, vecN P, ivecN offset, out gvec4 texel [, float bias])",
+sparseTexelFetchARB = fn " - (int)(gsamplerN sampler, ivecN P, int lod, out gvec4 texel)", 
+sparseTexelFetchOffsetARB = fn " - (int)(gsamplerN sampler, ivecN P, int lod, ivecN offset, out gvec4 texel)",
+sparseTextureLodOffsetARB = fn " - (int)(gsamplerN sampler, vecN P, float lod, ivecN offset, out gvec4 texel)",
+sparseTextureGradARB = fn " - (int)(gsamplerN sampler, vecN P, vecN dPdx, vecN dPdy, out gvec4 texel)",
+sparseTextureGradOffsetARB = fn " - (int)(gsamplerN sampler, vecN P, vecN dPdx, vecN dPdy, ivec2 offset, out gvec4 texel)",
+sparseTextureGatherARB = fn " - (int)(gsamplerN sampler, vecN P, out gvec4 texel [, int comp])",
+sparseTextureGatherOffsetARB = fn " - (int)(gsamplerN sampler, vecN P, ivecN offset, out gvec4 texel [, int comp])",
+sparseTextureGatherOffsetsARB = fn " - (int)(gsamplerN sampler, vecN P, ivecN offsets[4], out gvec4 texel [, int comp])",
+sparseImageLoadARB = fn " - (int)(gsamplerN image, ivecN P, out gvec4 texel)",
+sparseTextureClampARB = fn " - (int)(gsamplerN sampler, vecN P, float lodClamp, out gvec4 texel, [float bias])",
+sparseTextureOffsetClampARB = fn " - (int)(gsamplerN sampler, vecN P, ivecN offset, float lodClamp, out gvec4 texel [, float bias])",
+sparseTextureGradClampARB = fn " - (int)(gsamplerN sampler, vecN P, vecN dPdx, vecN dPdy, float lodClamp, out gvec4 texel)",
+sparseTextureGradOffsetClampARB = fn " - (int)(gsamplerN sampler, vecN P, vecN dPdx, vecN dPdy, ivecN offset, float lodClamp, out gvec4 texel)",
+textureClampARB = fn " - (gvec4)(gsamplerN sampler, vecN P, float lodClamp [, float bias])",
+textureOffsetClampARB = fn " - (gvec4)(gsamplerN sampler, vecN P, ivecN offset, float lodClamp [, float bias])",
+textureGradClampARB = fn " - (gvec4)(gsamplerN sampler, vecN P, vecN dPdx, vecN dPdy, float lodClamp)",
+textureGradOffsetClampARB = fn " - (gvec4)(gsamplerN sampler, vecN P, vecN dPdx, vecN dPdy, ivecN offset, float lodClamp)",
 }
 
 local keyw = 
@@ -302,6 +353,7 @@ local keyw =
     gl_BaseVertexARB gl_BaseInstanceARB gl_DrawIDARB
     
     gl_SubGroupInvocationARB gl_SubGroupEqMaskARB gl_SubGroupGeMaskARB gl_SubGroupGtMaskARB gl_SubGroupLeMaskARB gl_SubGroupLtMaskARB
+    gl_SubGroupSizeARB
     
     gl_ViewportMask
     gl_SecondaryPositionNV gl_SecondaryViewportMaskNV
