@@ -18,14 +18,16 @@ return binpath and {
       { ID "dx.profile.dx_3", "DX SM&3_0", "DirectX sm3_0 profile", wx.wxITEM_CHECK },
       { ID "dx.profile.dx_4", "DX SM&4_0", "DirectX sm4_0 profile", wx.wxITEM_CHECK },
       { ID "dx.profile.dx_5", "DX SM&5_0", "DirectX sm5_0 profile", wx.wxITEM_CHECK },
+      --{ ID "dx.profile.dx_6", "DX SM&6_0", "DirectX sm6_0 profile", wx.wxITEM_CHECK },
       { },
       { ID "dx.compile.input", "Custom &Args", "when set a popup for custom compiler args will be envoked", wx.wxITEM_CHECK },
       { ID "dx.compile.binary", "&Binary", "when set compiles binary output", wx.wxITEM_CHECK },
       { ID "dx.compile.legacy", "&Legacy", "when set compiles in legacy mode", wx.wxITEM_CHECK },
       { ID "dx.compile.backwards", "Backwards Compatibility", "when set compiles in backwards compatibility mode", wx.wxITEM_CHECK },
       { },
+      { ID "dx.compile.any", "Compile An&y\tCtrl-3", "Compile Shader (select entry word, matches _?s or ?S suffix for type)" },
       { ID "dx.compile.vertex", "Compile &Vertex", "Compile Vertex shader (select entry word)" },
-      { ID "dx.compile.fragment", "Compile &Fragment", "Compile pixel shader (select entry word)" },
+      { ID "dx.compile.pixel", "Compile &Pixel", "Compile Pixel shader (select entry word)" },
       { ID "dx.compile.geometry", "Compile &Geometry", "Compile Geometry shader (select entry word)" },
       { ID "dx.compile.domain", "Compile &Domain", "Compile Domain shader (select entry word)" },
       { ID "dx.compile.hull", "Compile &Hull", "Compile Hull shader (select entry word)" },
@@ -41,9 +43,17 @@ return binpath and {
     data.backwards = false
     data.binary = false
     data.profid = ID ("dx.profile."..dxprofile)
+    data.types = {
+      ["vs"] = 1,
+      ["ps"] = 2,
+      ["gs"] = 3,
+      ["ds"] = 4,
+      ["hs"] = 5,
+      ["cs"] = 6,
+    }
     data.domains = {
       [ID "dx.compile.vertex"] = 1,
-      [ID "dx.compile.fragment"] = 2,
+      [ID "dx.compile.pixel"] = 2,
       [ID "dx.compile.geometry"] = 3,
       [ID "dx.compile.domain"] = 4,
       [ID "dx.compile.hull"] = 5,
@@ -55,13 +65,14 @@ return binpath and {
       [ID "dx.profile.dx_3"] = {"vs_3_0","ps_3_0",false,false,false,false,"fx_3_0",ext=".fxc."},
       [ID "dx.profile.dx_4"] = {"vs_4_0","ps_4_0","gs_4_0",false,false,false,"fx_4_0",ext=".fxc."},
       [ID "dx.profile.dx_5"] = {"vs_5_0","ps_5_0","gs_5_0","ds_5_0","hs_5_0","cs_5_0","fx_5_0",ext=".fxc."},
+      [ID "dx.profile.dx_6"] = {"vs_6_0","ps_6_0","gs_6_0","ds_6_0","hs_6_0","cs_6_0",false,ext=".fxc."},
     }
     data.domaindefs = {
       " /D _VERTEX_=1 /D _DX_=1 ",
-      " /D _FRAGMENT_=1 /D _DX_=1 ",
+      " /D _FRAGMENT_=1 /D _PIXEL_=1 /D _DX_=1 ",
       " /D _GEOMETRY_=1 /D _DX_=1 ",
-      " /D _TESS_CONTROL_=1 /D _DX_=1 ",
-      " /D _TESS_EVAL_=1 /D _DX_=1 ",
+      " /D _TESS_CONTROL_=1 /D _HULL_=1 /D _DX_=1 ",
+      " /D _TESS_EVAL_=1 /D _DOMAIN_=1 /D _DX_=1 ",
       " /D _COMPUTE_=1 /D _DX_=1 ",
       " /D _EFFECTS_=1 /D _DX_=1 ",
     }
@@ -107,6 +118,14 @@ return binpath and {
       local filename,info = GetEditorFileAndCurInfo()
       local editor = GetEditor()
       local domain = data.domains[event:GetId()]
+      
+      if (not domain and info.selword) then
+        for typename,id in pairs(data.types) do
+          if(info.selword:match("_"..typename) or info.selword:match("[a-z0-9_]"..string.upper(typename).."$")) then
+            domain = id
+          end
+        end
+      end
 
       if (not (filename and binpath) or  not (domain == 7 or info.selword )) then
         DisplayOutput("Error: Dx Compile: Insufficient parameters (nofile / no selected entry function!\n")
@@ -146,7 +165,8 @@ return binpath and {
       CommandLineRun(cmdline,nil,true,nil,nil)
     end
 
-    frame:Connect(ID "dx.compile.vertex",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
+    frame:Connect(ID "dx.compile.any",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
+    frame:Connect(ID "dx.compile.pixel",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.fragment",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.geometry",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.domain",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
