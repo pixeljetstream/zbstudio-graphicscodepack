@@ -22,21 +22,24 @@ return binpath and {
       { },
       { ID "dx.compile.input", "Custom &Args", "when set a popup for custom compiler args will be envoked", wx.wxITEM_CHECK },
       { ID "dx.compile.binary", "&Binary", "when set compiles binary output", wx.wxITEM_CHECK },
-      { ID "dx.compile.legacy", "&Legacy", "when set compiles in legacy mode", wx.wxITEM_CHECK },
+      { ID "dx.compile.legacy", "Legacy", "when set compiles in legacy mode", wx.wxITEM_CHECK },
       { ID "dx.compile.backwards", "Backwards Compatibility", "when set compiles in backwards compatibility mode", wx.wxITEM_CHECK },
       { },
-      { ID "dx.compile.any", "Compile An&y\tCtrl-3", "Compile Shader (select entry word, matches _?s or ?S suffix for type)" },
+      { ID "dx.compile.any", "Compile from &Entry\tCtrl-3", "Compile Shader (select entry word, matches _?s or ?S suffix for type)" },
+      { ID "dx.compile.last", "Compile &Last\tCtrl-4", "Compile Shader using last domain and entry word" },
       { ID "dx.compile.vertex", "Compile &Vertex", "Compile Vertex shader (select entry word)" },
       { ID "dx.compile.pixel", "Compile &Pixel", "Compile Pixel shader (select entry word)" },
       { ID "dx.compile.geometry", "Compile &Geometry", "Compile Geometry shader (select entry word)" },
       { ID "dx.compile.domain", "Compile &Domain", "Compile Domain shader (select entry word)" },
       { ID "dx.compile.hull", "Compile &Hull", "Compile Hull shader (select entry word)" },
       { ID "dx.compile.compute", "Compile &Compute", "Compile Compute shader (select entry word)" },
-      { ID "dx.compile.effects", "Compile &Effects", "Compile all effects in shader" },
+      { ID "dx.compile.effects", "Compile E&ffects", "Compile all effects in shader" },
     }
     menuBar:Append(myMenu, "&Dx")
 
     local data = {}
+    data.lastentry = nil
+    data.lastdomain = nil
     data.customarg = false
     data.custom = ""
     data.legacy = false
@@ -59,6 +62,7 @@ return binpath and {
       [ID "dx.compile.hull"] = 5,
       [ID "dx.compile.compute"] = 6,
       [ID "dx.compile.effects"] = 7,
+      [ID "dx.compile.last"] = "last",
     }
     data.profiles = {
       [ID "dx.profile.dx_2x"] = {"vs_2_0","ps_2_x",false,false,false,false,"fx_2_x",ext=".fxc."},
@@ -118,20 +122,28 @@ return binpath and {
       local filename,info = GetEditorFileAndCurInfo()
       local editor = GetEditor()
       local domain = data.domains[event:GetId()]
+      local entry  = info.selword
       
-      if (not domain and info.selword) then
+      if (domain == "last") then
+        domain  = data.lastdomain
+        entry   = data.lastentry
+      end
+      
+      if (not domain and entry) then
         for typename,id in pairs(data.types) do
-          if(info.selword:match("_"..typename) or info.selword:match("[a-z0-9_]"..string.upper(typename).."$")) then
+          if(entry:match("_"..typename) or entry:match("[a-z0-9_]"..string.upper(typename).."$")) then
             domain = id
           end
         end
       end
 
-      if (not (filename and binpath) or  not (domain == 7 or info.selword )) then
+      if (not (filename and binpath) or  not (domain == 7 or entry )) then
         DisplayOutput("Error: Dx Compile: Insufficient parameters (nofile / no selected entry function!\n")
         return
       end
 
+      data.lastdomain = domain
+      data.lastentry  = entry
       
       local profile = data.profiles[data.profid]
       if (not profile[domain]) then return end
@@ -142,7 +154,7 @@ return binpath and {
 
       local fullname = filename:GetFullPath()
 
-      local outname = fullname.."."..(info.selword or "").."^"
+      local outname = fullname.."."..(entry or "").."^"
       outname = args and outname..args:gsub("%s*[%-%/]",";-")..";^" or outname
       outname = outname..profile[domain]..profile.ext..(data.binary and "fxo" or "txt")
       outname = '"'..outname..'"'
@@ -153,8 +165,8 @@ return binpath and {
       cmdline = cmdline..(data.backwards and "/Gec " or "")
       cmdline = cmdline..(data.domaindefs[domain])
       cmdline = cmdline..(data.binary and "/Fo " or "/Fc ")..outname.." "
-      if (info.selword) then
-      cmdline = cmdline.."/E "..info.selword.." "
+      if (entry) then
+      cmdline = cmdline.."/E "..entry.." "
       end
       cmdline = cmdline.."/nologo "
       cmdline = cmdline..' "'..fullname..'"'
@@ -166,6 +178,7 @@ return binpath and {
     end
 
     frame:Connect(ID "dx.compile.any",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
+    frame:Connect(ID "dx.compile.last",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.pixel",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.fragment",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.geometry",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
