@@ -72,13 +72,13 @@ return binpath and {
       [ID "dx.profile.dx_6"] = {"vs_6_0","ps_6_0","gs_6_0","ds_6_0","hs_6_0","cs_6_0",false,ext=".fxc."},
     }
     data.domaindefs = {
-      " /D _VERTEX_=1 /D _DX_=1 ",
-      " /D _FRAGMENT_=1 /D _PIXEL_=1 /D _DX_=1 ",
-      " /D _GEOMETRY_=1 /D _DX_=1 ",
-      " /D _TESS_CONTROL_=1 /D _HULL_=1 /D _DX_=1 ",
-      " /D _TESS_EVAL_=1 /D _DOMAIN_=1 /D _DX_=1 ",
-      " /D _COMPUTE_=1 /D _DX_=1 ",
-      " /D _EFFECTS_=1 /D _DX_=1 ",
+      " /D _VERTEX_=1 /D _DX_=1 /D _IDE_=1 ",
+      " /D _FRAGMENT_=1 /D _PIXEL_=1 /D _DX_=1 /D _IDE_=1 ",
+      " /D _GEOMETRY_=1 /D _DX_=1 /D _IDE_=1 ",
+      " /D _TESS_CONTROL_=1 /D _HULL_=1 /D _DX_=1 /D _IDE_=1 ",
+      " /D _TESS_EVAL_=1 /D _DOMAIN_=1 /D _DX_=1 /D _IDE_=1 ",
+      " /D _COMPUTE_=1 /D _DX_=1 /D _IDE_=1 ",
+      " /D _EFFECTS_=1 /D _DX_=1 /D _IDE_=1 ",
     }
     -- Profile related
     menuBar:Check(data.profid, true)

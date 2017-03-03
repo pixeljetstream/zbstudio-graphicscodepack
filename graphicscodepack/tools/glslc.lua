@@ -51,12 +51,12 @@ return binpath and {
       "compute",        
     }
     data.domaindefs = {
-      " -D_VERTEX_ ",
-      " -D_FRAGMENT_ ",
-      " -D_GEOMETRY_ ",
-      " -D_TESS_CONTROL_ ",
-      " -D_TESS_EVAL_ ",
-      " -D_COMPUTE_ ",
+      " -D_VERTEX_ -D_IDE_ ",
+      " -D_FRAGMENT_ -D_IDE_ ",
+      " -D_GEOMETRY_ -D_IDE_ ",
+      " -D_TESS_CONTROL_ -D_IDE_ ",
+      " -D_TESS_EVAL_ -D_IDE_ ",
+      " -D_COMPUTE_ -D_IDE_ ",
     }
 
     local function beautifyAsmEach(tx)
