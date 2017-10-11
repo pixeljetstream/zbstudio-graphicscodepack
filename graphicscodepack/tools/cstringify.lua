@@ -2,7 +2,7 @@
 -----------------------------------------------------------------
 
 local function cstringify()
-  local editor = GetEditor()
+  local editor = ide:GetEditor()
   if (not editor) then end
   local tx = editor:GetText()
   local new = ""

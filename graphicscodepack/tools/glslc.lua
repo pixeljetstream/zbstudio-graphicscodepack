@@ -58,6 +58,29 @@ return binpath and {
       " -D_TESS_EVAL_ -D_IDE_ ",
       " -D_COMPUTE_ -D_IDE_ ",
     }
+    
+    local function getEditorFileAndCurInfo(nochecksave)
+      local editor = ide:GetEditor() 
+      if (not (editor and (nochecksave or SaveIfModified(editor)))) then
+        return
+      end
+
+      local id = editor:GetId()
+      local filepath = ide.openDocuments[id].filePath
+      if not filepath then return end
+
+      local fn = wx.wxFileName(filepath)
+      fn:Normalize()
+
+      local info = {}
+      info.pos = editor:GetCurrentPos()
+      info.line = editor:GetCurrentLine()
+      info.sel = editor:GetSelectedText()
+      info.sel = info.sel and info.sel:len() > 0 and info.sel or nil
+      info.selword = info.sel and info.sel:match("([^a-zA-Z_0-9]+)") or info.sel
+
+      return fn,info
+    end
 
     local function beautifyAsmEach(tx)
       local newtx = ""
@@ -321,8 +344,8 @@ return binpath and {
     
     -- Compile
     local function evCompile(event)
-      local filename,info = GetEditorFileAndCurInfo()
-      local editor = GetEditor()
+      local filename,info = getEditorFileAndCurInfo()
+      local editor = ide:GetEditor()
       local glsl = true
 
       if (not (filename and binpath)) then
@@ -461,7 +484,7 @@ return binpath and {
     -- indent asm
     frame:Connect(ID "glslc.format.asm", wx.wxEVT_COMMAND_MENU_SELECTED,
       function(event)
-        local curedit = GetEditor()
+        local curedit = ide:GetEditor()
         local newtx = beautifyAsm( curedit:GetText() )
 
         curedit:SetText(newtx)
