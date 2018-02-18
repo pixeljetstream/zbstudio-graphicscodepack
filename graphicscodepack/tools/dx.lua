@@ -169,7 +169,10 @@ return binpath and {
       data.lastentry  = entry
       
       local profile = data.profiles[data.profid]
-      if (not profile[domain]) then return end
+      if (not profile[domain]) then
+        DisplayOutput("Error: Dx Compile: no profile\n")
+        return 
+      end
 
       -- popup for custom input
       data.custom = data.customarg and wx.wxGetTextFromUser("Compiler Args","Dx",data.custom) or data.custom
@@ -194,7 +197,7 @@ return binpath and {
       cmdline = cmdline.."/nologo "
       cmdline = cmdline..' "'..fullname..'"'
 
-      cmdline = binpath.."/fxc.exe"..cmdline
+      cmdline = '"'..binpath..'/fxc.exe"'..cmdline
 
       -- run compiler process
       CommandLineRun(cmdline,nil,true,nil,nil)
@@ -202,8 +205,8 @@ return binpath and {
 
     frame:Connect(ID "dx.compile.any",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.last",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
+    frame:Connect(ID "dx.compile.vertex",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.pixel",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
-    frame:Connect(ID "dx.compile.fragment",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.geometry",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.domain",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.hull",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
