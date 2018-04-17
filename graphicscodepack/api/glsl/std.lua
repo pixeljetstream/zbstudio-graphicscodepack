@@ -2,7 +2,6 @@
 ---------------------------------------------------------
 
 -- function helpers
-
 local function fn (description) 
 	local description2,returns,args = description:match("(.+)%-%s*(%b())%s*(%b())")
 	if not description2 then
@@ -258,6 +257,62 @@ textureClampARB = fn " - (gvec4)(gsamplerN sampler, vecN P, float lodClamp [, fl
 textureOffsetClampARB = fn " - (gvec4)(gsamplerN sampler, vecN P, ivecN offset, float lodClamp [, float bias])",
 textureGradClampARB = fn " - (gvec4)(gsamplerN sampler, vecN P, vecN dPdx, vecN dPdy, float lodClamp)",
 textureGradOffsetClampARB = fn " - (gvec4)(gsamplerN sampler, vecN P, vecN dPdx, vecN dPdy, ivecN offset, float lodClamp)",
+
+subgroupBarrier = fn " - ()()",
+subgroupMemoryBarrier = fn " - ()()",
+subgroupMemoryBarrierBuffer = fn " - ()()",
+subgroupMemoryBarrierShared = fn " - ()()",
+subgroupMemoryBarrierImage = fn " - ()()",
+subgroupElect = fn " - (bool)()",
+subgroupAll = fn " - (bool)(bool)",
+subgroupAny = fn " - (bool)(bool)",
+subgroupAllEqual = fn " - (bool)(gen)",
+subgroupBroadcast = fn " - (genN)(gen value, uint id)",
+subgroupBroadcastFirst = fn " - (gen)(gen value)",
+subgroupBallot = fn " - (uvec4)(bool)",
+subgroupInverseBallot = fn " - (bool)(uvec4 value)",
+subgroupBallotBitExtract = fn " - (bool)(uvec4 value, uint index)",
+subgroupBallotBitCount = fn " - (uint)(uvec4 value)",
+subgroupBallotInclusiveBitCount = fn " - (uint)(uvec4 value)",
+subgroupBallotExclusiveBitCount = fn " - (uint)(uvec4 value)",
+subgroupBallotFindLSB = fn " - (uint)(uvec4 value)",
+subgroupBallotFindMSB = fn " - (uint)(uvec4 value)",
+subgroupShuffle = fn " - (gen)(gen value, uint id)",
+subgroupShuffleXor = fn " - (gen)(gen value, uint mask)",
+subgroupShuffleUp = fn " - (gen)(gen value, uint delta)",
+subgroupShuffleDown = fn " - (gen)(gen value, uint delta)",
+subgroupAdd = fn " - (gen)(gen value)",
+subgroupMul = fn " - (gen)(gen value)",
+subgroupMin = fn " - (gen)(gen value)",
+subgroupMax = fn " - (gen)(gen value)",
+subgroupAnd = fn " - (gen)(gen value)",
+subgroupOr = fn " - (gen)(gen value)",
+subgroupXor = fn " - (gen)(gen value)",
+subgroupInclusiveAdd = fn " - (gen)(gen value)",
+subgroupInclusiveMul = fn " - (gen)(gen value)",
+subgroupInclusiveMin = fn " - (gen)(gen value)",
+subgroupInclusiveMax = fn " - (gen)(gen value)",
+subgroupInclusiveAnd = fn " - (gen)(gen value)",
+subgroupInclusiveOr  = fn " - (gen)(gen value)",
+subgroupInclusiveXor = fn " - (gen)(gen value)",
+subgroupExclusiveAdd = fn " - (gen)(gen value)",
+subgroupExclusiveMul = fn " - (gen)(gen value)",
+subgroupExclusiveMin = fn " - (gen)(gen value)",
+subgroupExclusiveMax = fn " - (gen)(gen value)",
+subgroupExclusiveAnd = fn " - (gen)(gen value)",
+subgroupExclusiveOr  = fn " - (gen)(gen value)",
+subgroupExclusiveXor = fn " - (gen)(gen value)",
+subgroupClusteredAdd = fn " - (gen)(gen value, uint clusterSize)",
+subgroupClusteredMul = fn " - (gen)(gen value, uint clusterSize)",
+subgroupClusteredMin = fn " - (gen)(gen value, uint clusterSize)",
+subgroupClusteredMax = fn " - (gen)(gen value, uint clusterSize)",
+subgroupClusteredAnd = fn " - (gen)(gen value, uint clusterSize)",
+subgroupClusteredOr  = fn " - (gen)(gen value, uint clusterSize)",
+subgroupClusteredXor = fn " - (gen)(gen value, uint clusterSize)",
+subgroupQuadBroadcast = fn " - (gen)(gen value, uint id)",
+subgroupQuadSwapHorizontal = fn " - (gen)(gen value)",
+subgroupQuadSwapVertical = fn " - (gen)(gen value)",
+subgroupQuadSwapDiagonal = fn " - (gen)(gen value)",
 }
 
 local keyw = 
@@ -359,6 +414,9 @@ local keyw =
     gl_SecondaryPositionNV gl_SecondaryViewportMaskNV
     gl_ThreadInWarpNV gl_ThreadEqMaskNV gl_ThreadGeMaskNV gl_ThreadGtMaskNV gl_ThreadLeMaskNV gl_ThreadLtMaskNV gl_WarpIDNV gl_SMIDNV gl_HelperThreadNV
     gl_WarpSizeNV gl_WarpsPerSMNV gl_WarpsPerSMNV
+    
+    gl_NumSubgroups gl_SubgroupID gl_SubgroupSize gl_SubgroupInvocationID 
+    gl_SubgroupEqMask gl_SubgroupGeMask gl_SubgroupGtMask gl_SubgroupLeMask gl_SubgroupLtMask
 ]]
 
 -- keywords - shouldn't be left out

@@ -137,6 +137,9 @@ return {
     gl_ThreadInWarpNV gl_ThreadEqMaskNV gl_ThreadGeMaskNV gl_ThreadGtMaskNV gl_ThreadLeMaskNV gl_ThreadLtMaskNV gl_WarpIDNV gl_SMIDNV gl_HelperThreadNV
     gl_WarpSizeNV gl_WarpsPerSMNV gl_WarpsPerSMNV
     
+    gl_NumSubgroups gl_SubgroupID gl_SubgroupSize gl_SubgroupInvocationID 
+    gl_SubgroupEqMask gl_SubgroupGeMask gl_SubgroupGtMask gl_SubgroupLeMask gl_SubgroupLtMask
+    
     common partition active asm class union enum typedef template this resource goto 
     noinline inline public static private extern external interface long short half fixed unsigned superp
     input output filter sizeof cast namespace using 
@@ -212,6 +215,18 @@ return {
     sparseImageLoadARB
     sparseTextureClampARB sparseTextureOffsetClampARB  sparseTextureGradClampARB  sparseTextureGradOffsetClampARB
     textureClampARB textureOffsetClampARB textureGradClampARB textureGradOffsetClampARB
+    
+    subgroupBarrier subgroupMemoryBarrier subgroupMemoryBarrierBuffer subgroupMemoryBarrierShared subgroupMemoryBarrierImage
+    subgroupElect subgroupAll subgroupAny subgroupAllEqual
+    subgroupBroadcast subgroupBroadcastFirst subgroupBallot subgroupInverseBallot
+    subgroupBallotBitExtract subgroupBallotBitCount subgroupBallotInclusiveBitCount subgroupBallotExclusiveBitCount 
+    subgroupBallotFindLSB subgroupBallotFindMSB
+    subgroupShuffle subgroupShuffleXor subgroupShuffleUp subgroupShuffleDown
+    subgroupAdd subgroupMul subgroupMin subgroupMax subgroupAnd subgroupOr subgroupXor
+    subgroupInclusiveAdd subgroupInclusiveMul subgroupInclusiveMin subgroupInclusiveMax subgroupInclusiveAnd subgroupInclusiveOr subgroupInclusiveXor
+    subgroupExclusiveAdd subgroupExclusiveMul subgroupExclusiveMin subgroupExclusiveMax subgroupExclusiveAnd subgroupExclusiveOr subgroupExclusiveXor
+    subgroupClusteredAdd subgroupClusteredMul subgroupClusteredMin subgroupClusteredMax subgroupClusteredAnd subgroupClusteredOr subgroupClusteredXor
+    subgroupQuadBroadcast subgroupQuadSwapHorizontal subgroupQuadSwapVertical subgroupQuadSwapDiagonal
   ]],
 
   },
