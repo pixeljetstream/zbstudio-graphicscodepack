@@ -89,7 +89,9 @@ return {
     bindless_sampler bound_sampler bindless_image bound_image
     binding set input_attachment_index
     pixel_interlock_ordered pixel_interlock_unordered sample_interlock_ordered sample_interlock_unordered
-    commandBindableNV passthrough secondary_view_offset viewport_relative override_coverage
+    passthrough secondary_view_offset viewport_relative override_coverage
+    commandBindableNV
+    push_constant
    
     size1x8 size1x16 size1x32 size2x32 size4x32 rgba32f rgba16f rg32f rg16f r32f r16f rgba8 rgba16 r11f_g11f_b10f rgb10_a2ui
     rgb10_a2i rg16 rg8 r16 r8 rgba32i rgba16i rgba8i rg32i rg16i rg8i r32i r16i r8i rgba32ui rgba16ui rgba8ui rg32ui rg16ui rg8ui
@@ -128,6 +130,7 @@ return {
     gl_VertexIndex gl_InstanceIndex
     
     gl_BaseVertexARB gl_BaseInstanceARB gl_DrawIDARB
+    gl_DrawID
     
     gl_SubGroupInvocationARB gl_SubGroupEqMaskARB gl_SubGroupGeMaskARB gl_SubGroupGtMaskARB gl_SubGroupLeMaskARB gl_SubGroupLtMaskARB
     gl_SubGroupSizeARB
@@ -139,6 +142,42 @@ return {
     
     gl_NumSubgroups gl_SubgroupID gl_SubgroupSize gl_SubgroupInvocationID 
     gl_SubgroupEqMask gl_SubgroupGeMask gl_SubgroupGtMask gl_SubgroupLeMask gl_SubgroupLtMask
+    
+    gl_TaskCountNV gl_PrimitiveCountNV gl_PrimitiveIndicesNV 
+    gl_ClipDistancePerViewNV gl_PositionPerViewNV gl_CullDistancePerViewNV gl_LayerPerViewN gl_ViewportMaskPerViewNV
+    gl_MaxMeshViewCountNV
+    gl_MeshViewCountNV gl_MeshViewIndicesNV gl_MeshPerVertexNV gl_MeshPerPrimitiveNV
+    gl_MeshVerticesNV gl_MeshPrimitivesNV
+    perprimitiveNV perviewNV taskNV
+    max_primitives
+    
+    accelerationStructureNVX
+    rayPayloadNVX rayPayloadInNVX hitAttributeNVX
+    shaderRecordNVX
+    gl_LaunchIDNVX gl_LaunchSizeNVX gl_InstanceCustomIndexNVX
+    gl_WorldRayOriginNVX gl_WorldRayDirectionNVX gl_ObjectRayOriginNVX gl_ObjectRayDirectionNVX
+    gl_RayTminNVX gl_RayTmaxNVX gl_HitTNVX gl_HitKindNVX
+    gl_ObjectToWorldNVX gl_WorldToObjectNVX
+    gl_RayFlagsNoneNVX
+    gl_RayFlagsOpaqueNVX
+    gl_RayFlagsNoOpaqueNVX
+    gl_RayFlagsTerminateOnFirstHitNVX
+    gl_RayFlagsSkipClosestHitShaderNVX
+    gl_RayFlagsCullBackFacingTrianglesNVX
+    gl_RayFlagsCullFrontFacingTrianglesNVX
+    gl_RayFlagsCullOpaqueNVX
+    gl_RayFlagsCullNoOpaqueNVX
+
+    gl_FragmentSizeNV gl_InvocationsPerPixelNV
+    shading_rate_interlock_ordered shading_rate_interlock_unordered
+    
+    pervertexNV
+    gl_BaryCoordNV
+    gl_BaryCoordNoPerspNV
+    
+    derivative_group_quadsNV derivative_group_linearNV
+    
+    nonuniformEXT
     
     common partition active asm class union enum typedef template this resource goto 
     noinline inline public static private extern external interface long short half fixed unsigned superp
@@ -227,6 +266,16 @@ return {
     subgroupExclusiveAdd subgroupExclusiveMul subgroupExclusiveMin subgroupExclusiveMax subgroupExclusiveAnd subgroupExclusiveOr subgroupExclusiveXor
     subgroupClusteredAdd subgroupClusteredMul subgroupClusteredMin subgroupClusteredMax subgroupClusteredAnd subgroupClusteredOr subgroupClusteredXor
     subgroupQuadBroadcast subgroupQuadSwapHorizontal subgroupQuadSwapVertical subgroupQuadSwapDiagonal
+    
+    writePackedPrimitiveIndices4x8NV
+    
+    traceNVX reportIntersectionNVX ignoreIntersectionNVX terminateRayNVX
+    
+    textureFootprintNV
+    textureFootprintClampNV
+    textureFootprintLodNV
+    textureFootprintGradNV
+    textureFootprintGradClampNV
   ]],
 
   },

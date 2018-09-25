@@ -15,8 +15,11 @@ There is two differnt options:
 ## Features
 
 ### GLSL
-This package comes with a spec, api tooltips, and a tool for a basic GLSL compiler: [glslc](https://github.com/pixeljetstream/glslc)
-To make the GLSL menu working either modify your zbstudio's `cfg/user.lua` and add `path.glslcbin = [[path to glslc.exe (excluded)]]` or set the `GLSLC_BIN_PATH` environment variable.
+This package comes with a spec, api tooltips, and tools for GLSL.
+
+#### GLSLC Tool
+Uses [glslc](https://github.com/pixeljetstream/glslc), which makes use of the system's OpenGL driver to compile the files.
+To make the GLSLC menu working either modify your zbstudio's `cfg/user.lua` and add `path.glslcbin = [[path to glslc.exe (excluded)]]` or set the `GLSLC_BIN_PATH` environment variable.
 
 ![glslc inside zbstudio](http://www.luxinia.de/images/estrela_glslc.png).
 
@@ -24,8 +27,24 @@ The GLASM output from glslc is also analyzed and formated by the tool. However, 
 
 ![glslc_glasm](http://www.luxinia.de/uploads/Estrela/Estrelacg.png)
 
-### HLSL/DX
-Similar as above is provided for the DirectX HLSL compiler (however not maintained as much as GLSL). Similar to GLSL modify `cfg/user.lua` and add `path.fxcbin = [[path to fxc.exe (excluded)]]` otherwise `(os.getenv("DXSDK_DIR") and os.getenv("DXSDK_DIR").."/Utilities/bin/x86/")` is used.
+Depending on the shadertype a define is set, e.g. `-D_VERTEX_SHADER_ -D_IDE_`.
+
+#### GLSLANG Tool
+Uses the official Khronos [glslangValidator](https://github.com/KhronosGroup/glslang) from the installed [VulkanSDK](https://vulkan.lunarg.com/sdk/home).
+To get the GLSLANG menu, modify `cfg/user.lua` and add `path.glslangbin = [[path to glslangValidator.exe (excluded)]]` otherwise `(os.getenv("VULKAN_SDK") and os.getenv("VULKAN_SDK").."/Bin")` is used.
+
+The menu looks similar to the above tool. On success two files are generated `<inputfile>.spv` and `<inputfile>.txt` (humand readable spir-v).
+By default shaders are compiled targeting Vulkan 1.1. The tool does support raytracing and mesh shaders.
+
+Depending on the shadertype a define is set, e.g. `-D_VERTEX_SHADER_ -D_IDE_`.
+
+### HLSL
+Similar as above is provided for the DirectX HLSL (however not maintained as much as GLSL). 
+
+#### FXC Tool
+To get the FXC menu entry, modify `cfg/user.lua` and add `path.fxcbin = [[path to fxc.exe (excluded)]]` otherwise `(os.getenv("DXSDK_DIR") and os.getenv("DXSDK_DIR").."/Utilities/bin/x86/")` is used.
+
+Depending on the shadertype a define is set, e.g. `-D_VERTEX_SHADER_ -D_IDE_`.
 
 ### Lua
 #### Api Files

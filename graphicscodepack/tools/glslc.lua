@@ -27,7 +27,7 @@ return binpath and {
       { },
       { ID "glslc.format.asm", "Annotate ASM", "indent and add comments to ASM output" },
     }
-    menuBar:Append(myMenu, "&GLSL")
+    menuBar:Append(myMenu, "&GLSLC")
 
     local data = {}
     data.customarg = false
@@ -51,12 +51,12 @@ return binpath and {
       "compute",        
     }
     data.domaindefs = {
-      " -D_VERTEX_ -D_IDE_ ",
-      " -D_FRAGMENT_ -D_IDE_ ",
-      " -D_GEOMETRY_ -D_IDE_ ",
-      " -D_TESS_CONTROL_ -D_IDE_ ",
-      " -D_TESS_EVAL_ -D_IDE_ ",
-      " -D_COMPUTE_ -D_IDE_ ",
+      " -D_VERTEX_SHADER_ -D_IDE_ ",
+      " -D_FRAGMENT_SHADER_ -D_IDE_ ",
+      " -D_GEOMETRY_SHADER_ -D_IDE_ ",
+      " -D_TESS_CONTROL_SHADER_ -D_IDE_ ",
+      " -D_TESS_EVALUATION_SHADER_ -D_IDE_ ",
+      " -D_COMPUTE_SHADER_ -D_IDE_ ",
     }
     
     local function getEditorFileAndCurInfo(nochecksave)
