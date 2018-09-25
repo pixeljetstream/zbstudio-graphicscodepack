@@ -25,11 +25,12 @@ return binpath and {
       { ID "glslang.compile.comp", "Compile Compute", "Compile Compute shader" },
       { ID "glslang.compile.mesh", "Compile Mesh", "Compile Mesh shader" },
       { ID "glslang.compile.task", "Compile Task", "Compile Task shader" },
-      { ID "glslang.compile.rgen", "Compile Ray Gen", "Compile RayGen shader" },
-      { ID "glslang.compile.isec", "Compile Intersection", "Compile Intersection shader" },
-      { ID "glslang.compile.ahit", "Compile Any Hit", "Compile Any Hit shader" },
-      { ID "glslang.compile.chit", "Compile Closest Hit", "Compile Closest Hit shader" },
-      { ID "glslang.compile.miss", "Compile Miss", "Compile Miss shader" },
+      { ID "glslang.compile.rgen", "Compile R. Generation", "Compile Ray Generation shader" },
+      { ID "glslang.compile.rint", "Compile R. Intersection", "Compile Ray Intersection shader" },
+      { ID "glslang.compile.rahit", "Compile R. Any Hit", "Compile Ray Any Hit shader" },
+      { ID "glslang.compile.rchit", "Compile R. Closest Hit", "Compile Ray Closest Hit shader" },
+      { ID "glslang.compile.rmiss", "Compile R. Miss", "Compile Ray Miss shader" },
+      --{ ID "glslang.compile.rcall", "Compile R. Callable", "Compile Ray Callable shader" },
     }
     menuBar:Append(myMenu, "&GLSLANG")
 
@@ -48,10 +49,11 @@ return binpath and {
       [ID "glslang.compile.mesh"] = 7,
       [ID "glslang.compile.task"] = 8,
       [ID "glslang.compile.rgen"] = 9,
-      [ID "glslang.compile.isec"] = 10,
-      [ID "glslang.compile.ahit"] = 11,
-      [ID "glslang.compile.chit"] = 12,
-      [ID "glslang.compile.miss"] = 13,
+      [ID "glslang.compile.rint"] = 10,
+      [ID "glslang.compile.rahit"] = 11,
+      [ID "glslang.compile.rchit"] = 12,
+      [ID "glslang.compile.rmiss"] = 13,
+      --[ID "glslang.compile.rcall"] = 14,
     }
     data.domainprofiles = {
       "vert",
@@ -63,10 +65,11 @@ return binpath and {
       "mesh",
       "task",
       "rgen",
-      "isec",
-      "ahit",
-      "chit",
-      "miss",
+      "rint",
+      "rahit",
+      "rchit",
+      "rmiss",
+      --"rcall",
     }
     data.domainexts = {
       vert  = 1,
@@ -81,10 +84,11 @@ return binpath and {
       mesh  = 7,
       task  = 8,
       rgen  = 9,
-      isec  = 10,
-      ahit  = 11,
-      chit  = 12,
-      miss  = 13,
+      rint  = 10,
+      rahit  = 11,
+      rchit  = 12,
+      rmiss  = 13,
+      --rcall  = 14,
     }
     
     data.domaindefs = {
@@ -96,11 +100,12 @@ return binpath and {
       " -D_COMPUTE_SHADER_ -D_IDE_ ",
       " -D_MESH_SHADER_ -D_IDE_ ",
       " -D_TASK_SHADER_ -D_IDE_ ",
-      " -D_RAYGEN_SHADER_ -D_IDE_ ",
-      " -D_INTERSECTION_SHADER_ -D_IDE_ ",
-      " -D_ANY_HIT_SHADER_ -D_IDE_ ",
-      " -D_CLOSEST_HIT_SHADER_ -D_IDE_ ",
-      " -D_MISS_SHADER_ -D_IDE_ ",
+      " -D_RAY_GENERATION_SHADER_ -D_IDE_ ",
+      " -D_RAY_INTERSECTION_SHADER_ -D_IDE_ ",
+      " -D_RAY_ANY_HIT_SHADER_ -D_IDE_ ",
+      " -D_RAY_CLOSEST_HIT_SHADER_ -D_IDE_ ",
+      " -D_RAY_MISS_SHADER_ -D_IDE_ ",
+      --" -D_RAY_CALLABLE_SHADER_ -D_IDE_ ",
     }
     
     local function getEditorFileAndCurInfo(nochecksave)
