@@ -276,6 +276,14 @@ return {
     textureFootprintLodNV
     textureFootprintGradNV
     textureFootprintGradClampNV
+
+    subgroupPartitionNV
+    subgroupPartitionedAddNV subgroupPartitionedMulNV subgroupPartitionedMinNV subgroupPartitionedMaxNV
+    subgroupPartitionedAndNV subgroupPartitionedOrNV subgroupPartitionedXorNV
+    subgroupPartitionedInclusiveAddNV subgroupPartitionedInclusiveMulNV subgroupPartitionedInclusiveMinNV subgroupPartitionedInclusiveMaxNV
+    subgroupPartitionedInclusiveAndNV subgroupPartitionedInclusiveOrNV subgroupPartitionedInclusiveXorNV
+    subgroupPartitionedExclusiveAddNV subgroupPartitionedExclusiveMulNV subgroupPartitionedExclusiveMinNV subgroupPartitionedExclusiveMaxNV
+    subgroupPartitionedExclusiveAndNV subgroupPartitionedExclusiveOrNV subgroupPartitionedExclusiveXorNV
   ]],
 
   },
