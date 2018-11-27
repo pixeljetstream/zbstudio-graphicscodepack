@@ -338,10 +338,11 @@ subgroupPartitionedExclusiveOrNV  = fn " - (gen)(gen value, uvec4 ballot)",
 subgroupPartitionedExclusiveXorNV = fn " - (gen)(gen value, uvec4 ballot)",
 
 writePackedPrimitiveIndices4x8NV = fn " - ()(uint offset, uint packed)",
-traceNVX = fn " - ()(accelerationStructureNV topLevel, uint rayFlags, uint cullMask, uint sbtRecordOffset, uint sbtRecordStride, uint missIndex, vec3 origin, float tmin, vec3 direction, float tmax, int payload)",
-reportIntersectionNVX = fn " - (bool)(float hit, uint hitKind)",
-ignoreIntersectionNVX = fn " - ()()",
-terminateRayNVX = fn " - ()()",
+traceNV = fn " - ()(accelerationStructureNV topLevel, uint rayFlags, uint cullMask, uint sbtRecordOffset, uint sbtRecordStride, uint missIndex, vec3 origin, float tmin, vec3 direction, float tmax, int payload)",
+reportIntersectionNV = fn " - (bool)(float hit, uint hitKind)",
+ignoreIntersectionNV = fn " - ()()",
+terminateRayNV = fn " - ()()",
+executeCallableNV  = fn "- ()(uint sbtRecordIndex, int callable)",
 textureFootprintNV = fn " - (bool)(gsamplerND sampler, vecN P, int granularity, bool coarse, out gl_TextureFootprintNDNV footprint, [float bias])",
 textureFootprintClampNV = fn " - ()(gsamplerND sampler, vecN P, float lodClamp, int granularity, bool coarse, out gl_TextureFootprintNDNV footprint, [float bias]))",
 textureFootprintLodNV = fn " - ()(gsamplerND sampler, vecN P, float lod, int granularity, bool coarse, out gl_TextureFootprintNDNV footprint)",
@@ -461,22 +462,23 @@ local keyw =
     perprimitiveNV perviewNV  taskNV
     max_primitives
     
-    accelerationStructureNVX
-    rayPayloadNVX rayPayloadInNVX hitAttributeNVX
-    shaderRecordNVX
-    gl_LaunchIDNVX gl_LaunchSizeNVX gl_InstanceCustomIndexNVX
-    gl_WorldRayOriginNVX gl_WorldRayDirectionNVX gl_ObjectRayOriginNVX gl_ObjectRayDirectionNVX
-    gl_RayTminNVX gl_RayTmaxNVX gl_HitTNVX gl_HitKindNVX
-    gl_ObjectToWorldNVX gl_WorldToObjectNVX
-    gl_RayFlagsNoneNVX
-    gl_RayFlagsOpaqueNVX
-    gl_RayFlagsNoOpaqueNVX
-    gl_RayFlagsTerminateOnFirstHitNVX
-    gl_RayFlagsSkipClosestHitShaderNVX
-    gl_RayFlagsCullBackFacingTrianglesNVX
-    gl_RayFlagsCullFrontFacingTrianglesNVX
-    gl_RayFlagsCullOpaqueNVX
-    gl_RayFlagsCullNoOpaqueNVX
+    accelerationStructureNV
+    rayPayloadNV rayPayloadInNV hitAttributeNV
+    callableDataNV callableDataInNV 
+    shaderRecordNV
+    gl_LaunchIDNV gl_LaunchSizeNV gl_InstanceCustomIndexNV
+    gl_WorldRayOriginNV gl_WorldRayDirectionNV gl_ObjectRayOriginNV gl_ObjectRayDirectionNV
+    gl_RayTminNV gl_RayTmaxNV gl_IncomingRayFlagsNV gl_HitTNV gl_HitKindNV
+    gl_ObjectToWorldNV gl_WorldToObjectNV
+    gl_RayFlagsNoneNV
+    gl_RayFlagsOpaqueNV
+    gl_RayFlagsNoOpaqueNV
+    gl_RayFlagsTerminateOnFirstHitNV
+    gl_RayFlagsSkipClosestHitShaderNV
+    gl_RayFlagsCullBackFacingTrianglesNV
+    gl_RayFlagsCullFrontFacingTrianglesNV
+    gl_RayFlagsCullOpaqueNV
+    gl_RayFlagsCullNoOpaqueNV
 
     gl_FragmentSizeNV gl_InvocationsPerPixelNV
     shading_rate_interlock_ordered shading_rate_interlock_unordered

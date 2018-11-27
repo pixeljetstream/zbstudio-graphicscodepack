@@ -151,22 +151,22 @@ return {
     perprimitiveNV perviewNV taskNV
     max_primitives
     
-    accelerationStructureNVX
-    rayPayloadNVX rayPayloadInNVX hitAttributeNVX
-    shaderRecordNVX
-    gl_LaunchIDNVX gl_LaunchSizeNVX gl_InstanceCustomIndexNVX
-    gl_WorldRayOriginNVX gl_WorldRayDirectionNVX gl_ObjectRayOriginNVX gl_ObjectRayDirectionNVX
-    gl_RayTminNVX gl_RayTmaxNVX gl_HitTNVX gl_HitKindNVX
-    gl_ObjectToWorldNVX gl_WorldToObjectNVX
-    gl_RayFlagsNoneNVX
-    gl_RayFlagsOpaqueNVX
-    gl_RayFlagsNoOpaqueNVX
-    gl_RayFlagsTerminateOnFirstHitNVX
-    gl_RayFlagsSkipClosestHitShaderNVX
-    gl_RayFlagsCullBackFacingTrianglesNVX
-    gl_RayFlagsCullFrontFacingTrianglesNVX
-    gl_RayFlagsCullOpaqueNVX
-    gl_RayFlagsCullNoOpaqueNVX
+    accelerationStructureNV
+    rayPayloadNV rayPayloadInNV hitAttributeNV callableDataNV callableDataInNV 
+    shaderRecordNV
+    gl_LaunchIDNV gl_LaunchSizeNV gl_InstanceCustomIndexNV
+    gl_WorldRayOriginNV gl_WorldRayDirectionNV gl_ObjectRayOriginNV gl_ObjectRayDirectionNV
+    gl_RayTminNV gl_RayTmaxNV gl_IncomingRayFlagsNV gl_HitTNV gl_HitKindNV
+    gl_ObjectToWorldNV gl_WorldToObjectNV
+    gl_RayFlagsNoneNV
+    gl_RayFlagsOpaqueNV
+    gl_RayFlagsNoOpaqueNV
+    gl_RayFlagsTerminateOnFirstHitNV
+    gl_RayFlagsSkipClosestHitShaderNV
+    gl_RayFlagsCullBackFacingTrianglesNV
+    gl_RayFlagsCullFrontFacingTrianglesNV
+    gl_RayFlagsCullOpaqueNV
+    gl_RayFlagsCullNoOpaqueNV
 
     gl_FragmentSizeNV gl_InvocationsPerPixelNV
     shading_rate_interlock_ordered shading_rate_interlock_unordered
@@ -269,7 +269,7 @@ return {
     
     writePackedPrimitiveIndices4x8NV
     
-    traceNVX reportIntersectionNVX ignoreIntersectionNVX terminateRayNVX
+    traceNV reportIntersectionNV ignoreIntersectionNV terminateRayNV executeCallableNV 
     
     textureFootprintNV
     textureFootprintClampNV
