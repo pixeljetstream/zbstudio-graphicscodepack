@@ -34,6 +34,7 @@ return binpath and {
       { ID "dx.compile.hull", "Compile &Hull", "Compile Hull shader (select entry word)" },
       { ID "dx.compile.compute", "Compile &Compute", "Compile Compute shader (select entry word)" },
       { ID "dx.compile.effects", "Compile E&ffects", "Compile all effects in shader" },
+      { ID "dx.compile.preprocess", "Preprocess file only", "preprocess the current file" },
     }
     menuBar:Append(myMenu, "F&XC")
 
@@ -45,6 +46,7 @@ return binpath and {
     data.legacy = false
     data.backwards = false
     data.binary = false
+    data.preprocess = false
     data.profid = ID ("dx.profile."..dxprofile)
     data.types = {
       ["vs"] = 1,
@@ -154,7 +156,7 @@ return binpath and {
       
       if (not domain and entry) then
         for typename,id in pairs(data.types) do
-          if(entry:match("_"..typename) or entry:match("[a-z0-9_]"..string.upper(typename).."$")) then
+          if(entry:match("_"..typename) or entry:match("[a-z0-9_]"..string.upper(typename).."$") or entry:match("^"..string.lower(typename).."[A-Z]")) then
             domain = id
           end
         end
@@ -202,7 +204,31 @@ return binpath and {
       -- run compiler process
       CommandLineRun(cmdline,nil,true,nil,nil)
     end
+    
+    frame:Connect(ID "dx.compile.preprocess",wx.wxEVT_COMMAND_MENU_SELECTED,
+      function(event)
+        local filename,info = getEditorFileAndCurInfo()
+        
+        data.custom = data.customarg and wx.wxGetTextFromUser("Compiler Args","Dx",data.custom) or data.custom
+        local args = data.custom:len() > 0 and data.custom or nil
+        
+        local fullname = filename:GetFullPath()
 
+        local outname = fullname
+        outname = args and outname..".^"..args:gsub("%s*[%-%/]",";-")..";^" or outname
+        outname = outname..".fx"
+        outname = '"'..outname..'"'
+        
+        local cmdline = " /P "..outname.." "
+        cmdline = cmdline..(args and args.." " or "")
+        cmdline = cmdline.."/nologo "
+        cmdline = cmdline..' "'..fullname..'"'
+      
+        cmdline = '"'..binpath..'/fxc.exe"'..cmdline
+        
+        CommandLineRun(cmdline,nil,true,nil,nil)
+      end)
+    
     frame:Connect(ID "dx.compile.any",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.last",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
     frame:Connect(ID "dx.compile.vertex",wx.wxEVT_COMMAND_MENU_SELECTED,evCompile)
