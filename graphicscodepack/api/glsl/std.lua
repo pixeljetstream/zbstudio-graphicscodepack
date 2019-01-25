@@ -388,6 +388,8 @@ local keyw =
     invariant precise
     discard return
     lowp mediump highp precision
+    buffer_reference buffer_reference_align
+
     
     location vertices line_strip triangle_strip max_vertices stream index
     triangles quads equal_spacing isolines fractional_even_spacing lines points
@@ -404,6 +406,8 @@ local keyw =
     pixel_interlock_ordered pixel_interlock_unordered sample_interlock_ordered sample_interlock_unordered
     passthrough push_constant secondary_view_offset viewport_relative override_coverage
     commandBindableNV
+    subgroupuniformEXT
+    scalar
     
     size1x8 size1x16 size1x32 size2x32 size4x32 rgba32f rgba16f rg32f rg16f r32f r16f rgba8 rgba16 r11f_g11f_b10f rgb10_a2ui
     rgb10_a2i rg16 rg8 r16 r8 rgba32i rgba16i rgba8i rg32i rg16i rg8i r32i r16i r8i rgba32ui rgba16ui rgba8ui rg32ui rg16ui rg8ui
@@ -490,6 +494,28 @@ local keyw =
     derivative_group_quadsNV derivative_group_linearNV
     
     nonuniformEXT
+
+    gl_FragSizeEXT
+    gl_FragInvocationCountEXT
+
+    gl_ScopeDevice
+    gl_ScopeWorkgroup
+    gl_ScopeSubgroup
+    gl_ScopeInvocation
+    gl_ScopeQueueFamily
+
+    gl_SemanticsRelaxed
+    gl_SemanticsAcquire
+    gl_SemanticsRelease
+    gl_SemanticsAcquireRelease
+    gl_SemanticsMakeAvailable
+    gl_SemanticsMakeVisible
+
+    gl_StorageSemanticsNone
+    gl_StorageSemanticsBuffer
+    gl_StorageSemanticsShared
+    gl_StorageSemanticsImage
+    gl_StorageSemanticsOutput
 ]]
 
 -- keywords - shouldn't be left out
