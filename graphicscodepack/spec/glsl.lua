@@ -94,6 +94,7 @@ return {
     commandBindableNV
     subgroupuniformEXT
     scalar
+    constant_id
    
     size1x8 size1x16 size1x32 size2x32 size4x32 rgba32f rgba16f rg32f rg16f r32f r16f rgba8 rgba16 r11f_g11f_b10f rgb10_a2ui
     rgb10_a2i rg16 rg8 r16 r8 rgba32i rgba16i rgba8i rg32i rg16i rg8i r32i r16i r8i rgba32ui rgba16ui rgba8ui rg32ui rg16ui rg8ui
@@ -115,8 +116,8 @@ return {
     utexture1D utexture2D utexture3D utextureCube utexture2DRect utexture1DArray utexture2DArray utextureBuffer utexture2DMS utexture2DMSArray utextureCubeArray
     itexture1D itexture2D itexture3D itextureCube itexture2DRect itexture1DArray itexture2DArray itextureBuffer itexture2DMS itexture2DMSArray itextureCubeArray
     
-    usampler1D usampler2D usampler3D usampler2DRect usamplerBuffer usamplerCube isampler1DArray usampler2DARRAY usamplerCubeArray usampler2DMS usampler2DMSArray
-    isampler1D isampler2D isampler3D isampler2DRect isamplerCube isamplerBuffer isampler1DArray isampler2DARRAY isamplerCubeArray isampler2DMS isampler2DMSArray
+    usampler1D usampler2D usampler3D usampler2DRect usamplerBuffer usamplerCube isampler1DArray usampler2DArray usamplerCubeArray usampler2DMS usampler2DMSArray
+    isampler1D isampler2D isampler3D isampler2DRect isamplerCube isamplerBuffer isampler1DArray isampler2DArray isamplerCubeArray isampler2DMS isampler2DMSArray
     sampler1D sampler2D sampler3D sampler2DRect samplerCube samplerBuffer sampler1DArray sampler2DArray samplerCubeArray sampler2DMS sampler2DMSArray
     
     gl_Position gl_FragCoord
