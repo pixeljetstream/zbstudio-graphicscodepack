@@ -1,6 +1,14 @@
 -- Copyright (C) 2008-2017 Christoph Kubisch. All rights reserved.
 ---------------------------------------------------------
 
+--[[
+-- code to convert list of "blah function(arguments);"
+
+for ret,fn,args in list:gmatch("([%w_]+) ([%w_]+)(%b());") do
+	print(fn..' = fn " - ('..(ret == "void" and "" or ret)..')'..args..'",')
+end
+]]
+
 -- function helpers
 local function fn (description) 
 	local description2,returns,args = description:match("(.+)%-%s*(%b())%s*(%b())")
@@ -338,11 +346,43 @@ subgroupPartitionedExclusiveOrNV  = fn " - (gen)(gen value, uvec4 ballot)",
 subgroupPartitionedExclusiveXorNV = fn " - (gen)(gen value, uvec4 ballot)",
 
 writePackedPrimitiveIndices4x8NV = fn " - ()(uint offset, uint packed)",
+
 traceNV = fn " - ()(accelerationStructureNV topLevel, uint rayFlags, uint cullMask, uint sbtRecordOffset, uint sbtRecordStride, uint missIndex, vec3 origin, float tmin, vec3 direction, float tmax, int payload)",
 reportIntersectionNV = fn " - (bool)(float hit, uint hitKind)",
 ignoreIntersectionNV = fn " - ()()",
 terminateRayNV = fn " - ()()",
 executeCallableNV  = fn "- ()(uint sbtRecordIndex, int callable)",
+
+traceRayEXT = fn " - ()(accelerationStructureEXT topLevel, uint rayFlags, uint cullMask, uint sbtRecordOffset, uint sbtRecordStride, uint missIndex, vec3 origin, float tmin, vec3 direction, float tmax, int payload)",
+reportIntersectionEXT = fn " - (bool)(float hit, uint hitKind)",
+ignoreIntersectionEXT = fn " - ()()",
+terminateRayEXT = fn " - ()()",
+executeCallableEXT  = fn "- ()(uint sbtRecordIndex, int callable)",
+
+rayQueryInitializeEXT = fn " - ()(rayQueryEXT rayQuery, accelerationStructureEXT topLevel, uint rayFlags, uint cullMask, vec3 origin, float tMin, vec3 direction, float tMax)",
+rayQueryProceedEXT = fn " - (bool)(rayQueryEXT q)",
+rayQueryTerminateEXT = fn " - ()(rayQueryEXT q)",
+rayQueryGenerateIntersectionEXT = fn " - ()(rayQueryEXT q, float tHit)",
+rayQueryConfirmIntersectionEXT = fn " - ()(rayQueryEXT q)",
+rayQueryGetIntersectionTypeEXT = fn " - (uint)(rayQueryEXT q, bool committed)",
+rayQueryGetRayTMinEXT = fn " - (float)(rayQueryEXT q)",
+rayQueryGetRayFlagsEXT = fn " - (uint)(rayQueryEXT q)",
+rayQueryGetWorldRayOriginEXT = fn " - (vec3)(rayQueryEXT q)",
+rayQueryGetWorldRayDirectionEXT = fn " - (vec3)(rayQueryEXT q)",
+rayQueryGetIntersectionTEXT = fn " - (float)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionInstanceCustomIndexEXT = fn " - (int)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionInstanceIdEXT = fn " - (int)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionInstanceShaderBindingTableRecordOffsetEXT = fn " - (uint)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionGeometryIndexEXT = fn " - (int)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionPrimitiveIndexEXT = fn " - (int)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionBarycentricsEXT = fn " - (vec2)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionFrontFaceEXT = fn " - (bool)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionCandidateAABBOpaqueEXT = fn " - (bool)(rayQueryEXT q)",
+rayQueryGetIntersectionObjectRayDirectionEXT = fn " - (vec3)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionObjectRayOriginEXT = fn " - (vec3)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionObjectToWorldEXT = fn " - (mat4x3)(rayQueryEXT q, bool committed)",
+rayQueryGetIntersectionWorldToObjectEXT = fn " - (mat4x3)(rayQueryEXT q, bool committed)",
+
 textureFootprintNV = fn " - (bool)(gsamplerND sampler, vecN P, int granularity, bool coarse, out gl_TextureFootprintNDNV footprint, [float bias])",
 textureFootprintClampNV = fn " - ()(gsamplerND sampler, vecN P, float lodClamp, int granularity, bool coarse, out gl_TextureFootprintNDNV footprint, [float bias]))",
 textureFootprintLodNV = fn " - ()(gsamplerND sampler, vecN P, float lod, int granularity, bool coarse, out gl_TextureFootprintNDNV footprint)",
@@ -484,6 +524,30 @@ local keyw =
     gl_RayFlagsCullFrontFacingTrianglesNV
     gl_RayFlagsCullOpaqueNV
     gl_RayFlagsCullNoOpaqueNV
+		
+    accelerationStructureEXT rayQueryEXT accelerationStructureEXT 
+    rayPayloadEXT rayPayloadInEXT hitAttributeEXT callableDataEXT callableDataInEXT 
+    shaderRecordEXT
+    gl_LaunchIDEXT gl_LaunchSizeEXT gl_InstanceCustomIndexEXT gl_GeometryIndexEXT 
+    gl_WorldRayOriginEXT gl_WorldRayDirectionEXT gl_ObjectRayOriginEXT gl_ObjectRayDirectionEXT
+    gl_RayTminEXT gl_RayTmaxEXT gl_IncomingRayFlagsEXT gl_HitTEXT gl_HitKindEXT
+    gl_ObjectToWorldEXT gl_WorldToObjectEXT gl_WorldToObject3x4EXT gl_ObjectToWorld3x4EXT 
+    gl_RayFlagsNoneEXT
+    gl_RayFlagsOpaqueEXT
+    gl_RayFlagsNoOpaqueEXT
+    gl_RayFlagsTerminateOnFirstHitEXT
+    gl_RayFlagsSkipClosestHitShaderEXT
+    gl_RayFlagsCullBackFacingTrianglesEXT
+    gl_RayFlagsCullFrontFacingTrianglesEXT
+    gl_RayFlagsCullOpaqueEXT
+    gl_RayFlagsCullNoOpaqueEXT
+    gl_HitKindFrontFacingTriangleEXT gl_HitKindBackFacingTriangleEXT 
+    gl_RayQueryCommittedIntersectionNoneEXT 
+    gl_RayQueryCommittedIntersectionTriangleEXT 
+    gl_RayQueryCommittedIntersectionGeneratedEXT 
+    gl_RayQueryCandidateIntersectionTriangleEXT 
+    gl_RayQueryCandidateIntersectionAABBEXT 
+    shadercallcoherent 
 
     gl_FragmentSizeNV gl_InvocationsPerPixelNV
     shading_rate_interlock_ordered shading_rate_interlock_unordered

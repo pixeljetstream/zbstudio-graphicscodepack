@@ -170,6 +170,30 @@ return {
     gl_RayFlagsCullFrontFacingTrianglesNV
     gl_RayFlagsCullOpaqueNV
     gl_RayFlagsCullNoOpaqueNV
+    
+    accelerationStructureEXT rayQueryEXT accelerationStructureEXT 
+    rayPayloadEXT rayPayloadInEXT hitAttributeEXT callableDataEXT callableDataInEXT 
+    shaderRecordEXT
+    gl_LaunchIDEXT gl_LaunchSizeEXT gl_InstanceCustomIndexEXT gl_GeometryIndexEXT 
+    gl_WorldRayOriginEXT gl_WorldRayDirectionEXT gl_ObjectRayOriginEXT gl_ObjectRayDirectionEXT
+    gl_RayTminEXT gl_RayTmaxEXT gl_IncomingRayFlagsEXT gl_HitTEXT gl_HitKindEXT
+    gl_ObjectToWorldEXT gl_WorldToObjectEXT gl_WorldToObject3x4EXT gl_ObjectToWorld3x4EXT 
+    gl_RayFlagsNoneEXT
+    gl_RayFlagsOpaqueEXT
+    gl_RayFlagsNoOpaqueEXT
+    gl_RayFlagsTerminateOnFirstHitEXT
+    gl_RayFlagsSkipClosestHitShaderEXT
+    gl_RayFlagsCullBackFacingTrianglesEXT
+    gl_RayFlagsCullFrontFacingTrianglesEXT
+    gl_RayFlagsCullOpaqueEXT
+    gl_RayFlagsCullNoOpaqueEXT
+    gl_HitKindFrontFacingTriangleEXT gl_HitKindBackFacingTriangleEXT 
+    gl_RayQueryCommittedIntersectionNoneEXT 
+    gl_RayQueryCommittedIntersectionTriangleEXT 
+    gl_RayQueryCommittedIntersectionGeneratedEXT 
+    gl_RayQueryCandidateIntersectionTriangleEXT 
+    gl_RayQueryCandidateIntersectionAABBEXT 
+    shadercallcoherent 
 
     gl_FragmentSizeNV gl_InvocationsPerPixelNV
     shading_rate_interlock_ordered shading_rate_interlock_unordered
@@ -295,6 +319,14 @@ return {
     writePackedPrimitiveIndices4x8NV
     
     traceNV reportIntersectionNV ignoreIntersectionNV terminateRayNV executeCallableNV 
+    traceRayEXT  reportIntersectionEXT  ignoreIntersectioneXT terminateRayEXT executeCallableEXT 
+    
+    rayQueryInitializeEXT rayQueryProceedEXT rayQueryTerminateEXT rayQueryGenerateIntersectionEXT rayQueryConfirmIntersectionEXT
+    rayQueryGetIntersectionTypeEXT rayQueryGetRayTMinEXT rayQueryGetRayFlagsEXT rayQueryGetRayFlagsEXT rayQueryGetRayFlagsEXT rayQueryGetIntersectionTEXT
+    rayQueryGetIntersectionInstanceCustomIndexEXT rayQueryGetIntersectionInstanceIdEXT rayQueryGetIntersectionInstanceShaderBindingTableRecordOffsetEXT
+    rayQueryGetIntersectionGeometryIndexEXT rayQueryGetIntersectionPrimitiveIndexEXT rayQueryGetIntersectionBarycentricsEXT
+    rayQueryGetIntersectionFrontFaceEXT rayQueryGetIntersectionCandidateAABBOpaqueEXT rayQueryGetIntersectionObjectRayDirectionEXT
+    rayQueryGetIntersectionObjectRayOriginEXT rayQueryGetIntersectionObjectToWorldEXT rayQueryGetIntersectionWorldToObjectEXT
     
     textureFootprintNV
     textureFootprintClampNV
