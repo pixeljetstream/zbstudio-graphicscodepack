@@ -18,7 +18,7 @@ There is two differnt options:
 This package comes with a spec, api tooltips, and tools for GLSL.
 
 #### GLSLC Tool
-Uses [glslc](https://github.com/pixeljetstream/glslc), which makes use of the system's OpenGL driver to compile the files.
+Uses [glslc](https://github.com/pixeljetstream/glslc), which makes use of the system's OpenGL driver to compile the files (not recommended anymore, prefer to use GLSLANG, see below)
 To make the GLSLC menu working either modify your zbstudio's `cfg/user.lua` and add `path.glslcbin = [[path to glslc.exe (excluded)]]` or set the `GLSLC_BIN_PATH` environment variable.
 
 ![glslc inside zbstudio](http://www.luxinia.de/images/estrela_glslc.png).
