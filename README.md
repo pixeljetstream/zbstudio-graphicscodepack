@@ -41,6 +41,9 @@ Depending on the shadertype a define is set, e.g. `-D_VERTEX_SHADER_ -D_IDE_`.
 ### HLSL
 Similar as above is provided for the DirectX HLSL (however not maintained as much as GLSL). 
 
+#### DXC Tool
+To get the DXC menu entry, modify `cfg/user.lua` and add `path.dxcbin = [[path to dxc.exe (excluded)]]`
+
 #### FXC Tool
 To get the FXC menu entry, modify `cfg/user.lua` and add `path.fxcbin = [[path to fxc.exe (excluded)]]` otherwise `(os.getenv("DXSDK_DIR") and os.getenv("DXSDK_DIR").."/Utilities/bin/x86/")` is used.
 
