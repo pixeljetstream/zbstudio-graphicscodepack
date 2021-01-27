@@ -207,7 +207,7 @@ return binpath and {
       outname = outname..(args and "^"..args:gsub("%s*[%-%/]",";-")..";^" or "")
       outname = outname..(outsuffix or "")
       outname = outname..((outsuffix or args) and "." or "")
-      local logname = outname..'txt'
+      local logname = outname..'spva'
       outname = '"'..outname..'spv"'
       
       DisplayOutput("logname", logname)
