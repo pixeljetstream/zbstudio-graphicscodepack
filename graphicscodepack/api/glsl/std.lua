@@ -453,6 +453,7 @@ local keyw =
     size1x8 size1x16 size1x32 size2x32 size4x32 rgba32f rgba16f rg32f rg16f r32f r16f rgba8 rgba16 r11f_g11f_b10f rgb10_a2ui
     rgb10_a2i rg16 rg8 r16 r8 rgba32i rgba16i rgba8i rg32i rg16i rg8i r32i r16i r8i rgba32ui rgba16ui rgba8ui rg32ui rg16ui rg8ui
     r32ui r16ui r8ui rgba16_snorm rgba8_snorm rg16_snorm rg8_snorm r16_snorm r8_snorm
+    r64i r64ui
 
     subpassInput isubpassInput usubpassInput
     subpassInputMS isubpassInputMS usubpassInputMS
@@ -473,6 +474,10 @@ local keyw =
     usampler1D usampler2D usampler3D usampler2DRect usamplerBuffer usamplerCube usampler1DArray usampler2DArray usamplerCubeArray usampler2DMS usampler2DMSArray
     isampler1D isampler2D isampler3D isampler2DRect isamplerBuffer isamplerCube isampler1DArray isampler2DArray isamplerCubeArray isampler2DMS isampler2DMSArray
     sampler1D sampler2D sampler3D sampler2DRect samplerCube samplerBuffer sampler1DArray sampler2DArray samplerCubeArray sampler2DMS sampler2DMSArray
+    
+    i64image1D u64image1D i64image1DArray u64image1DArray i64image2D u64image2D i64image2DArray u64image2DArray i64image2DRect u64image2DRect
+    i64image2DMS u64image2DMS i64image2DMSArray u64image2DMSArray i64image3D u64image3D i64imageCube u64imageCube i64imageCubeArray u64imageCubeArray
+    i64imageBuffer u64imageBuffer
     
     gl_Position gl_FragCoord
     gl_VertexID gl_InstanceID gl_PointSize gl_ClipDistance
