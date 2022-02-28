@@ -16,7 +16,7 @@ return binpath and {
       { ID "glslang.compile.input", "&Custom Args", "when set a popup for custom compiler args will be envoked", wx.wxITEM_CHECK },
       { ID "glslang.compile.preproc", "Preprocess File", "Pre-process the files only, resolving #inlcudes", wx.wxITEM_CHECK },
       { },
-      { ID "glslang.compile.ext", "Compile from .ext\tCtrl-1", "Compile based on file extension" },
+      { ID "glslang.compile.ext", "Compile from .ext\tF8", "Compile based on file extension" },
       { ID "glslang.compile.vert", "Compile Vertex", "Compile Vertex shader" },
       { ID "glslang.compile.frag", "Compile Fragment", "Compile Fragment shader" },
       { ID "glslang.compile.geom", "Compile Geometry", "Compile Geometry shader" },
@@ -219,7 +219,7 @@ return binpath and {
         cmdline = cmdline..compileargs
       else
         cmdline = cmdline..(args and args.." " or "")
-        cmdline = cmdline.."--target-env vulkan1.1 -H "
+        cmdline = cmdline.."--target-env vulkan1.2 -H -g "
         cmdline = cmdline.."-o "..outname.." "
         cmdline = cmdline..compileargs
       end
