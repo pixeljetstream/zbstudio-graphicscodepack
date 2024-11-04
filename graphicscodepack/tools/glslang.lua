@@ -210,16 +210,31 @@ return binpath and {
       local logname = outname..'spva'
       outname = '"'..outname..'spv"'
       
-      DisplayOutput("logname", logname)
+      --DisplayOutput("logname", logname)
+
+      local projpath = ide:GetProject()
+      local includeargs = ""
+
+      --DisplayOutput("proj", projpath.."zbsgfxpack.lua", wx.wxFileExists(projpath.."/zbsgfxpack.lua"), "\n")
+      if (projpath and wx.wxFileExists(projpath.."zbsgfxpack.lua")) then
+        local gfxpack = LoadLuaFileExt({}, projpath.."zbsgfxpack.lua")
+        if (gfxpack and gfxpack.zbsgfxpack and gfxpack.zbsgfxpack.glslang and gfxpack.zbsgfxpack.glslang.includes) then
+          for i,v in ipairs(gfxpack.zbsgfxpack.glslang.includes) do
+            includeargs = includeargs..'-I"'..v..'" '
+          end
+        end
+      end
 
       local cmdline = binpath.."/glslangValidator.exe "
       if (data.preproc) then
         logname = filename:GetPath(wx.wxPATH_GET_VOLUME + wx.wxPATH_GET_SEPARATOR).."_"..filename:GetFullName()
         cmdline = cmdline.."-E "
+        cmdline = cmdline..includeargs
         cmdline = cmdline..compileargs
       else
         cmdline = cmdline..(args and args.." " or "")
         cmdline = cmdline.."--target-env vulkan1.2 -H -g "
+        cmdline = cmdline..includeargs
         cmdline = cmdline.."-o "..outname.." "
         cmdline = cmdline..compileargs
       end

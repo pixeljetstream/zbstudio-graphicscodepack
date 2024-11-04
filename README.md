@@ -38,6 +38,10 @@ By default shaders are compiled targeting Vulkan 1.1. The tool does support rayt
 
 Depending on the shadertype a define is set, e.g. `-D_VERTEX_SHADER_ -D_IDE_`.
 
+To add project specific include directories:
+* put `zbsgfxpack.lua` file in project directory
+* return include paths through the lua file: `return { glslang = { includes = { "myIncludeDirectory", ...} } }`
+
 ### HLSL
 Similar as above is provided for the DirectX HLSL (however not maintained as much as GLSL). 
 
