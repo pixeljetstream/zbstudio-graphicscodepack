@@ -211,6 +211,8 @@ return binpath and {
       outname = '"'..outname..'spv"'
       
       --DisplayOutput("logname", logname)
+      
+      local skipoutput = ide.config.glslangskipoutput
 
       local projpath = ide:GetProject()
       local includeargs = ""
@@ -220,7 +222,13 @@ return binpath and {
         local gfxpack = LoadLuaFileExt({}, projpath.."zbsgfxpack.lua")
         if (gfxpack and gfxpack.zbsgfxpack and gfxpack.zbsgfxpack.glslang and gfxpack.zbsgfxpack.glslang.includes) then
           for i,v in ipairs(gfxpack.zbsgfxpack.glslang.includes) do
-            includeargs = includeargs..'-I"'..v..'" '
+            if (wx.wxFileName(v):IsRelative()) then
+              local t = wx.wxFileName(projpath..v)
+              t:MakeAbsolute()
+              includeargs = includeargs..'-I"'..t:GetFullPath()..'" '
+            else
+              includeargs = includeargs..'-I"'..v..'" '
+            end
           end
         end
       end
@@ -231,15 +239,20 @@ return binpath and {
         cmdline = cmdline.."-E "
         cmdline = cmdline..includeargs
         cmdline = cmdline..compileargs
+        skipoutput = false
       else
         cmdline = cmdline..(args and args.." " or "")
-        cmdline = cmdline.."--target-env vulkan1.2 -H -g "
+        cmdline = cmdline.."--target-env vulkan1.3 "
         cmdline = cmdline..includeargs
-        cmdline = cmdline.."-o "..outname.." "
+        if (not skipoutput) then
+          cmdline = cmdline.." -H -g -o "..outname.." "
+        else
+          cmdline = cmdline.." -g -o "..outname.." "
+        end
         cmdline = cmdline..compileargs
       end
       
-      do 
+      if (not skipoutput) then
         -- reset log file
         local f = io.open(logname,"wt")
         if (f) then
@@ -254,7 +267,7 @@ return binpath and {
           moduleFile = true
         end
         
-        if (moduleFile) then
+        if (moduleFile and not skipoutput) then
           local f = io.open(logname,"at")
           if (f) then
             local ostr = str:gsub("\n","")
@@ -268,10 +281,19 @@ return binpath and {
         end
       end
       
-      local wdir = filename:GetPath(wx.wxPATH_GET_VOLUME)
-
+      local endcallback = nil
+      if (skipoutput) then
+        endcallback = function()
+          
+          local t = outname:sub(2,-2)
+          if (wx.wxFileExists(t) and wx.wxRemoveFile(t)) then
+            DisplayOutput("deleted temporary output", outname, "\n")
+          end
+        end
+      end
+      
       -- run compiler process
-      CommandLineRun(cmdline,wdir,true, nil, compilecallback)
+      CommandLineRun(cmdline,wdir,true, nil, compilecallback, nil, endcallback)
 
     end
 
